@@ -1,0 +1,9 @@
+{
+  "name": "experimental-amd-plugin",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.6.0",
+    "grunt": "~0.4.1",
+    "grunt-jsbeautifier": "~0.2.2"
+  }
+}
