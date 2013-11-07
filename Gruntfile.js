@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         jshint: {
             all: [
                 "Gruntfile.js",
-                "plugins/*.js"
+                "plugins/**/*.js"
             ],
             options: {
                 jshintrc: ".jshintrc",
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
         },
 
         jsbeautifier: {
-            files: ["Gruntfile.js", "plugins/*.js"],
+            files: ["Gruntfile.js", "plugins/**/*.js"],
             options: {
                 config: ".jshintrc",
                 js: {
