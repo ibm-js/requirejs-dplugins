@@ -10,7 +10,7 @@ define(["./common"], function (common) {
             name = parts[0];
             while (locale) {
                 if (flattenedLocales.indexOf(locale) >= 0) {
-                    require([name + "_" + locale], function (bundle) {
+                    req([name + "_" + locale], function (bundle) {
                         onLoad(bundle);
                         return;
                     });

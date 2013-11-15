@@ -12,6 +12,11 @@ This plugin should work with RequireJS and Dojo.
 This plugin is based on requirejs i18n.
  * see: http://github.com/requirejs/i18n for details
 
+## loadNlsAndLayer.js
+
+This plugin is used to load layer files output by the Dojo 2 build system.
+ * see: http://github.com/requirejs/i18n for details
+
 ## Licensing
 
 This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](https://github.com/dojo/dojo/blob/master/LICENSE#L13-L41).
