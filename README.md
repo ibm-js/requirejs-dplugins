@@ -1,6 +1,6 @@
-# experimental-amd-plugins
+# d-amd-plugins
 
-> This repository is used to experiment with AMD plugin. The content of this repository is highly unstable, untested and may vary without notice.
+> This repository is hosting alpha AMD plugin that will be used in Dojo 2. The content of this repository is highly unstable, untested and may vary without notice.
 
 ## maybe.js
 
