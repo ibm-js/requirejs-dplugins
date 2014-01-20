@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<script src="../node_modules/requirejs/require.js"></script>
+		<script type="text/javascript">
+			var query = window.location.search.substring(1).split("&"),
+				param = function (index) {
+					return query[index] === "t";				
+				};
+			
+			
+			require.config({
+				baseUrl: "./testApp/",
+				packages: [{
+					name: "myapp",
+					location: "dist/myapp"
+				}],
+
+				paths: { 
+					"i18n": "../../i18n",
+					"maybe": "../../maybe"
+				},
+				
+				locale: query[0],
+				config: {
+					i18n: {
+						layerOnly: param(1),
+						enhanceLayer: param(2),
+						languagePack: param(3)
+					}
+				},
+				isDebug : true
+			});
+
+			require(["myapp/test"], function(test){
+				test.log(document.getElementById("layer"));
+			});
+			
+			if (!param(1)) {
+				require(["i18n!myapp/nls/bundleC", "i18n!myapp/nls/bundleD"], function(bC, bD){
+					document.getElementById("bundle").innerHTML = bC.MSG + " " + bD.MSG;
+				});
+			}
+			
+		</script>
+	</head>
+	<body>
+		<h1>TEST FILE</h1>
+		<p id="layer"></p>
+		<p id="bundle"></p>
+	</body>
+</html>
