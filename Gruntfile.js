@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 			all: {
 				options: {
 					runType: 'runner', // defaults to 'client'
-					config: 'tests/locale.js',
+					config: 'tests/local.js',
 					reporters: ['console', 'lcov']
 				}
 			}

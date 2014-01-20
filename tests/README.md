@@ -1,24 +1,25 @@
-# webAmdApp
+# i18n Plugin Tests
+This directory contains the i18n plugin tests.
 
-Very basic web amd application to test grunt-amd-build plugin
+## Setup
+Before starting, install Intern, Grunt and RequireJS by running
 
-## Getting Started
+```
+$ npm install
+```
 
-After cloning the repo, install all the dependencies using npm:  
+## Running the unit and functional tests locally
 
-	$ npm install
-	
+1) Download selenium server 2.37.0 (http://www.seleniumhq.org/download/) and start it on the default port (4444):
 
-## Running the build
-TODOC
+```
+$ java -jar selenium-server-standalone-2.37.0.jar
+```
 
-## Launching the application
-TODOC
+2) Edit local.js to list which browsers to test
 
-## Results
-TODOC	 	
+3) Run the tests:
 
-## Licensing
-
-This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](https://github.com/dojo/dojo/blob/master/LICENSE#L13-L41).
-All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/about/claForm).
+```
+grunt intern
+```
