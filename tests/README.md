@@ -21,5 +21,5 @@ $ java -jar selenium-server-standalone-2.37.0.jar
 3) Run the tests:
 
 ```
-grunt intern
+$ grunt intern
 ```
