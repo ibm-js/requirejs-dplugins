@@ -24,7 +24,7 @@ This project requires the following other project to run:
 
 * Manual master installation: go to the root Dojo installation directory and clone requirejs-dplugins from github:
 
-	$ git clone git://github.com/ibm-dojo/requirejs-dplugins.git
+	`$ git clone git://github.com/ibm-dojo/requirejs-dplugins.git`
 
 ## Documentation
 
