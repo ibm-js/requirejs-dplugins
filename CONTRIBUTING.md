@@ -102,7 +102,7 @@ and merge them into your local clone and then push them to your GitHub fork:
 
 ```bash
 $ cd requirejs-dplugins
-$ git remote add upstream git@github.com:ibm-dojo/requirejs-dplugins.git
+$ git remote add upstream git@github.com:ibm-js/requirejs-dplugins.git
 $ git fetch upstream
 ```
 
