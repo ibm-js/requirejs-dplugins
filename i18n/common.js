@@ -2,8 +2,7 @@ define(["../maybe!./parentLocale"], function (parentLocale) {
 	parentLocale = parentLocale || {};
 
 	return {
-		getLocale: function (config) {
-			var locale = config.locale;
+		getLocale: function (locale) {
 			if (!locale) {
 				locale = typeof navigator === "undefined" ? "root" :
 					(navigator.language ||

@@ -160,9 +160,11 @@ define(['./i18n/common', "module"], function (common, module) {
 				masterMid,
 				layer;
 
+			moduleConfig.enhanceLayer = moduleConfig.enhanceLayer === undefined ? true : moduleConfig.enhanceLayer;
+				
 			// Parse name and set the locale if a top level bundle is required
 			name = parseName(name);
-			name.requestedLocale = name.requestedLocale || common.getLocale(config);
+			name.requestedLocale = name.requestedLocale || common.getLocale(moduleConfig.locale || config.locale);
 			masterMid = getMasterMid(name);
 
 			// If there is no layer, classic AMD mode

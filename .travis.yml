@@ -1,5 +1,9 @@
 language: node_js
-node_js: "0.10"
-before_script: 
-  - npm install -g grunt-cli
-script: "grunt jshint"
+node_js: '0.10'
+before_script:
+- npm install -g grunt-cli
+script: grunt travis
+env:
+  global:
+  - secure: DO5E2w6hfCCrh8dm7hwQfePiOXnHFnyDXg6IyZCCrkIuleLYAFP7B/atlgFPyPSmMEu42JynWN6nrGGZv4s9br2IZR7kIPA5clnU2SAYwTbLdARNE8WIo5bWQcROX90MyvxaZV3C3/THdLF8eB3LTD3GEXiOePYQcuAHMAQvPfk=
+  - secure: cAQhsHCidIkL/ClxUOMGSNggytB0ugpjC8rlrQOu/fMp7he/BI/TqlgF78lA1Kzh55XXSOA8Sm25gb0r3wvzp2YZ1hx6U3qRrrHPymLvrD2pciVeXqd13tGWUhi+//uv1slL8pctneEkwqY+H31Wp5XPZkyY+kJbaJRxfHCrcek=
