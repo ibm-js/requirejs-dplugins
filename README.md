@@ -8,7 +8,7 @@ Set of AMD plugins for RequireJS. It contains the following plugins:
 ## Status
 
 No official release yet.
-
+ 
 ## Migration
 
 ## Licensing
