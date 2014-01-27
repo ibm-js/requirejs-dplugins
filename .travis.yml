@@ -5,5 +5,5 @@ before_script:
 script: grunt travis
 env:
   global:
-  - secure: DO5E2w6hfCCrh8dm7hwQfePiOXnHFnyDXg6IyZCCrkIuleLYAFP7B/atlgFPyPSmMEu42JynWN6nrGGZv4s9br2IZR7kIPA5clnU2SAYwTbLdARNE8WIo5bWQcROX90MyvxaZV3C3/THdLF8eB3LTD3GEXiOePYQcuAHMAQvPfk=
-  - secure: cAQhsHCidIkL/ClxUOMGSNggytB0ugpjC8rlrQOu/fMp7he/BI/TqlgF78lA1Kzh55XXSOA8Sm25gb0r3wvzp2YZ1hx6U3qRrrHPymLvrD2pciVeXqd13tGWUhi+//uv1slL8pctneEkwqY+H31Wp5XPZkyY+kJbaJRxfHCrcek=
+  - secure: PejwKh/cHv07TFKJEbTonawNYvKxgbJ9Syb8uRzU3RzzFrlGi9NFQFQHvHrfOF523m1zoEVmtWqBajgvjfHf9ZJvCtOsW0H6zk3W2HBXoc/M7cd+bZ9Cs3EkOJ4xvdqlmXa3bOGT81tDYiX5cdYfLdM7oGQN/jBW7I/CaVYKSHQ=
+  - secure: C4L3dF10u/vKEluIThdV/lFZHPLND8gWzGQUvxVjXHXo5cxgJupPNlWLI8O2Ou7ZLcgZoAkXHRNz07guQGT/2sT9UHJ3rcprrw4P+2g7VVFz+r3tDHqfY75ln9hEtmVdzto8vDykohLkDHJO5Nh827Ig7X9bE3zNu+GpxTUjHvk=
