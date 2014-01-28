@@ -55,7 +55,7 @@ requirejs.config({
 });
 ```
  * `layerOnly` (default: false)
-    
+
     If `layerOnly = true`, the plugin is only looking for nls bundles in built nls layers. `layerOnly` must be true if only the built nls layers are deployed with the application.
     If the individual nls bundles are also deployed, `layerOnly` should be false.
 
@@ -63,7 +63,7 @@ requirejs.config({
     
     If true, this option give the possibility to add new locales to the application just by adding the corresponding built nls layer. However, this will result in more http requests (and some expected 404 in the console), so it should only be used in low latency environments (like cordova applications).
  * `enhanceLayer` (default: true)
-    
+
     This option is NOT used if `layerOnly = true`.
 
     This option define the behaviour of the plugin when a bundle is retrieved from a layer with a less specific locale than requested (ie: bundle `en` from layer when `en-us` was requested).
