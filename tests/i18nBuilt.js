@@ -6,7 +6,7 @@ define([
 	var testLayer = function (that, options, locale, layerResult, layerHint, bundleResult, bundleHint) {
 		return that.remote
 			.get(require.toUrl('./testBuilt.html?' + locale + '&' + options))
-			.wait(250)
+			.wait(5000)
 			.elementById('layer')
 			.text()
 			.then(function (txt) {

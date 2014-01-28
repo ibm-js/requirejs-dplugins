@@ -30,7 +30,7 @@ module.exports = function (grunt) {
 			all: {
 				options: {
 					runType: 'runner', // defaults to 'client'
-					config: 'tests/local.js',
+					config: 'tests/sauce',
 					reporters: ['console', 'lcov']
 				}
 			}
@@ -45,7 +45,5 @@ module.exports = function (grunt) {
 
 	// By default, lint and run all tests.
 	grunt.registerTask("default", ["jsbeautifier", "jshint", "intern"]);
-	grunt.registerTask("travis", ["jshint", "intern"]);
-	
 
 };

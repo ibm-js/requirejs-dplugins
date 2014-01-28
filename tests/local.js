@@ -21,6 +21,8 @@ define({
 	// capabilities options specified for an environment will be copied as-is
 	environments: [{
 		browserName: 'chrome'
+	}, {
+		browserName: 'firefox'
 	}],
 
 	// Maximum number of simultaneous integration tests that should be executed on the remote WebDriver service
@@ -36,19 +38,6 @@ define({
 		host: 'localhost',
 		port: 4444
 	},
-
-	// Configuration options for the module loader; any AMD configuration options supported by the specified AMD loader
-	// can be used here
-	loader: {
-		// Packages that should be registered with the loader in each testing environment
-		packages: [{
-			name: 'app',
-			location: 'app'
-		}]
-	},
-
-	// Non-functional test suite(s) to run in each browser
-	//suites: [ 'tests/hello' ],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
 	functionalSuites: ['tests/i18nBuilt'],
