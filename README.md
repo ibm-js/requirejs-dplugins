@@ -61,14 +61,14 @@ requirejs.config({
 
  * `languagePack` (default: false)
     
-    If true, this option give the possibility to add new locales to the application just by adding the corresponding built nls layer. However, this will result in more http requests (and some expected 404 in the console), so it should only be used in low latency environments (like cordova applications).
+    If true, this option gives the possibility to add new locales to the application just by adding the corresponding built nls layer. However, this will result in more http requests (and some expected 404 in the console), so it should only be used in low latency environments (like cordova applications).
  * `enhanceLayer` (default: true)
 
-    This option is NOT used if `layerOnly = true`.
+    This option is ignored if `layerOnly = true`.
 
-    This option define the behaviour of the plugin when a bundle is retrieved from a layer with a less specific locale than requested (ie: bundle `en` from layer when `en-us` was requested).
+    This option defines the behaviour of the plugin when a bundle is retrieved from a layer with a less specific locale than requested (ie: bundle `en` from layer when `en-us` was requested).
         
-    * If `enhanceLayer = false`, the plugin only use the bundle from the layer. This is useful when a part of the application is an already built package distributed without the individual nls bundles.
+    * If `enhanceLayer = false`, the plugin only uses the bundle from the layer. This is useful when a part of the application is an already built package distributed without the individual nls bundles.
     
     * If `enhanceLayer = true`, the plugin will try to load a more specific individual bundle if one exist.
  
