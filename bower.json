@@ -1,4 +1,14 @@
 {
-  "name": "requirejs-dplugins",
-  "version": "0.1.0-dev"
+	"name": "requirejs-dplugins",
+	"version": "0.1.0-dev",
+	"dependencies": {
+		"requirejs": "2.1.x"
+	},
+	"ignore": [
+		".jshintrc",
+		".gitattributes",
+		".travis.yml",
+		"tests",
+		"CONTRIBUTING.md"
+	]
 }

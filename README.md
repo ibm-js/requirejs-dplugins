@@ -20,16 +20,22 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 This project requires the following other project to run:
 
-* requirejs
+ * requirejs
 
 ## Installation
 
-* Bower release installation: `bower install requirejs-dplugins`
+_Bower_ release installation:
 
-* Manual master installation: go to the root Dojo installation directory and clone requirejs-dplugins from github:
+    $ bower install requirejs-dplugins
 
-	`$ git clone git://github.com/ibm-js/requirejs-dplugins.git`
+_Manual_ master installation:
 
+    $ git clone git://github.com/ibm-js/requirejs-dplugins.git
+
+Then install dependencies with bower (or manually from github if you prefer to):
+
+	$ cd requirejs-dplugins
+	$ bower install
 
 ## Documentation
 ### i18n
