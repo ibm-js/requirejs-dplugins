@@ -13,6 +13,12 @@ define(['./i18n/common', "module"], function (common, module) {
 	var nlsRegExp = /(^.*(^|\/)nls(\/|$))([^\/]*)\/?([^\/]*)/,
 
 
+		// Build variables
+		bundlesList = [],
+		confLocalesList,
+		mid,
+		parentRequire,
+
 		// Simple function to mix in properties from source into target,
 		// but only if target does not already have a property of the same name.
 		// This is not robust in IE for transferring methods that match
@@ -28,6 +34,15 @@ define(['./i18n/common', "module"], function (common, module) {
 						target[prop] = {};
 					}
 					mixin(target[prop], source[prop], force);
+				}
+			}
+		},
+
+		eachProp = function (obj, func) {
+			var prop;
+			for (prop in obj) {
+				if (obj.hasOwnProperty(prop)) {
+					func(prop, obj[prop]);
 				}
 			}
 		},
@@ -160,8 +175,14 @@ define(['./i18n/common', "module"], function (common, module) {
 				masterMid,
 				layer;
 
+			if (config.isBuild) {
+				confLocalesList = config.localesList;
+				onLoad();
+				return;
+			}
+
 			moduleConfig.enhanceLayer = moduleConfig.enhanceLayer === undefined ? true : moduleConfig.enhanceLayer;
-				
+
 			// Parse name and set the locale if a top level bundle is required
 			name = parseName(name);
 			name.requestedLocale = name.requestedLocale || common.getLocale(moduleConfig.locale || config.locale);
@@ -197,6 +218,147 @@ define(['./i18n/common', "module"], function (common, module) {
 				getLayer(name, layer, moduleConfig, common.getParentLocale, req, onLoad);
 				return;
 			}
+		},
+
+		writeFile: function (pluginName, moduleName, req, write) {
+			mid = mid || pluginName;
+			parentRequire = req;
+			bundlesList.push(moduleName);
+		},
+
+		onLayerEnd: function (write, data) {
+			var i18nConf,
+				layersContent = {},
+				localesList,
+				resetPlugin = function () {
+					bundlesList = [];
+					confLocalesList = undefined;
+					mid = undefined;
+					parentRequire = undefined;
+				};
+
+			if (!data.name) {
+				resetPlugin();
+				return;
+			}
+
+			localesList = confLocalesList;
+			if (!localesList) {
+				// list all existing locales
+				localesList = [];
+				bundlesList.forEach(function (bundle) {
+					var root = parentRequire(bundle);
+					eachProp(root, function (loc) {
+						if (localesList.indexOf(loc) < 0) {
+							localesList.push(loc);
+						}
+					});
+				});
+			}
+			if (localesList.indexOf("root") < 0) {
+				localesList.push("root");
+			}
+
+
+
+			// write a nls layer for each locale
+			bundlesList.forEach(function (bundle) {
+				var name = parseName(bundle),
+					root,
+					parent,
+					availableLocales = [],
+					pseudoRoots = {};
+
+
+				// todo if name.requestedLocale
+				// rassembler les eachProp avec au dessus
+				root = parentRequire(bundle);
+				eachProp(root, function (loc) {
+					if (loc !== "root") {
+						availableLocales.push(loc);
+						parent = common.getParentLocale(loc);
+						while (parent && parent !== "root") {
+							pseudoRoots[parent] = pseudoRoots[parent] || {};
+							pseudoRoots[parent][loc] = true;
+							parent = common.getParentLocale(parent);
+						}
+					}
+				});
+
+				localesList.forEach(function (loc) {
+					var result = {},
+						localizedBundle,
+						locale = loc;
+
+					layersContent[loc] = layersContent[loc] || "";
+
+					if (loc !== "root") {
+						while (locale && locale !== "root") {
+							if (availableLocales.indexOf(locale) >= 0) {
+								localizedBundle = parentRequire(name.prefix + locale + "/" + name.suffix);
+								mixin(result, localizedBundle);
+							}
+							locale = common.getParentLocale(locale);
+						}
+						localizedBundle = root.root === true || root.root === 1 ? parentRequire(name.prefix + "root/" + name.suffix) : root.root;
+						mixin(result, localizedBundle);
+
+						result._flattened = true;
+						result._pseudoRoot = pseudoRoots[loc] || {};
+
+						layersContent[loc] += 'define("' + name.prefix + loc + "/" + name.suffix + '",' + JSON.stringify(result) + ");";
+					} else {
+						mixin(result, root);
+						result.root = result.root === true || result.root === 1 ? parentRequire(name.prefix + "root/" + name.suffix) : result.root;
+						layersContent[loc] += 'define("' + name.prefix + loc + "/" + name.suffix + '",' + JSON.stringify(result) + ");";
+					}
+
+				});
+			});
+
+			// This assumes nodejs
+			eachProp(layersContent, function (loc, content) {
+				var fs = require("fs"),
+					matchP = data.path.match(/^(.*\/)(.*)(\.js)$/),
+					path = matchP[1] + "nls/" + matchP[2] + "_" + loc + ".js",
+					parts = path.split("/"),
+					tmp = [],
+					matchM = data.name.match(/^(.*\/)(.*)$/),
+					mid = matchM[1] + "nls/" + matchM[2] + "_" + loc;
+
+				content += "define('" + mid + "', true);";
+
+				// Create path
+				parts.pop();
+				while (!fs.existsSync(parts.join("/") + "/")) {
+					tmp.push(parts.pop());
+				}
+				while (tmp.length) {
+					parts.push(tmp.pop());
+					fs.mkdirSync(parts.join("/"));
+				}
+
+				fs.writeFileSync(path, content);
+			});
+
+			console.log(layersContent);
+			console.log(data.name);
+
+			i18nConf = {
+				config: {}
+			};
+			i18nConf.config[mid] = {
+				bundlesMap: {},
+				localesMap: {}
+			};
+			i18nConf.config[mid].bundlesMap[data.name] = bundlesList;
+			i18nConf.config[mid].localesMap[data.name] = localesList;
+			//changer format config pour coller au mail addresser à christophe
+
+			// write i18n config on the layer
+			write("require.config(" + JSON.stringify(i18nConf) + ")");
+
+			resetPlugin();
 		}
 	};
 });
