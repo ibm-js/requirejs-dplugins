@@ -156,7 +156,7 @@ define(['./i18n/common', "module"], function (common, module) {
 		load: function (name, req, onLoad, config) {
 			config = config || {};
 
-			var moduleConfig = module.config(),
+			var moduleConfig = module.config() || {},
 				masterMid,
 				layer;
 
