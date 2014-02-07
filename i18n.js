@@ -2,7 +2,7 @@
  * Plugin based on requirejs i18n
  * see: http://github.com/requirejs/i18n for details
  */
-define(['./i18n/common', "module"], function (common, module) {
+define(['./i18n/common', "module", "require"], function (common, module, requirejs) {
 
 	// regexp for reconstructing the master bundle name from parts of the regexp match
 	// nlsRegExp.exec("foo/bar/baz/nls/en-ca/foo") gives:
@@ -16,9 +16,8 @@ define(['./i18n/common', "module"], function (common, module) {
 		// Build variables
 		bundlesList = [],
 		confLocalesList,
-		mid,
-		parentRequire,
-
+		pluginMid,
+	
 		// Simple function to mix in properties from source into target,
 		// but only if target does not already have a property of the same name.
 		// This is not robust in IE for transferring methods that match
@@ -45,6 +44,16 @@ define(['./i18n/common', "module"], function (common, module) {
 					func(prop, obj[prop]);
 				}
 			}
+		},
+
+		normalizeBundlesMap = function (bundlesMap) {
+			var result = {};
+			eachProp(bundlesMap, function (layer, bundleList) {
+				bundleList.forEach(function (bundle) {
+					result[bundle] = layer;
+				});
+			});
+			return result;
 		},
 
 		// Use nlsRegExp to parse the resource mid and return a usable object.	
@@ -113,9 +122,9 @@ define(['./i18n/common', "module"], function (common, module) {
 
 		getLayer = function (name, layer, moduleConfig, getParentLocale, req, onLoad) {
 			var locale = name.requestedLocale,
-				localesMap = moduleConfig.localesMap[layer];
+				localesList = moduleConfig.localesMap[layer];
 
-			while (locale && !localesMap[locale]) {
+			while (locale && localesList.indexOf(locale) < 0) {
 				locale = getParentLocale(locale);
 			}
 
@@ -168,12 +177,16 @@ define(['./i18n/common', "module"], function (common, module) {
 		};
 
 	return {
+		/* jshint -W074 */
 		load: function (name, req, onLoad, config) {
 			config = config || {};
 
-			var moduleConfig = module.config() || {},
+			var moduleConfig = {},
 				masterMid,
 				layer;
+
+			// Copy the config
+			mixin(moduleConfig, typeof module.config === "function" ? module.config() || {} : {});
 
 			if (config.isBuild) {
 				confLocalesList = config.localesList;
@@ -197,7 +210,9 @@ define(['./i18n/common', "module"], function (common, module) {
 			// From now on there is at least one layer available
 
 			// Check if requested module is in a layer
+			moduleConfig.bundlesMap = normalizeBundlesMap(moduleConfig.bundlesMap);
 			layer = moduleConfig.bundlesMap[masterMid];
+
 			if (!layer && moduleConfig.layerOnly) {
 				console.log("i18n: module " + masterMid + " not found in layer.");
 				onLoad();
@@ -219,10 +234,10 @@ define(['./i18n/common', "module"], function (common, module) {
 				return;
 			}
 		},
+		/* jshint +W074 */
 
-		writeFile: function (pluginName, moduleName, req, write) {
-			mid = mid || pluginName;
-			parentRequire = req;
+		write: function (pluginName, moduleName, write) {
+			pluginMid = pluginMid || pluginName;
 			bundlesList.push(moduleName);
 		},
 
@@ -230,10 +245,38 @@ define(['./i18n/common', "module"], function (common, module) {
 			var i18nConf,
 				layersContent = {},
 				localesList,
+				pseudoRoots,
+				match = data.name.match(/^(.*\/)(.*)$/),
+				layerMid = match[1] + "nls/" + match[2],
+
+				// Get the list of locales to process and calculate the pseudoRoots
+				init = function () {
+					localesList = confLocalesList || [];
+					pseudoRoots = {};
+					bundlesList.forEach(function (bundle) {
+						var root = requirejs(bundle);
+						pseudoRoots[bundle] = pseudoRoots[bundle] || {};
+
+						eachProp(root, function (loc) {
+							// Calculate the pseudoRoots
+							var parent = common.getParentLocale(loc);
+							while (parent && parent !== "root") {
+								pseudoRoots[bundle][parent] = pseudoRoots[parent] || {};
+								pseudoRoots[bundle][parent][loc] = true;
+								parent = common.getParentLocale(parent);
+							}
+							// List all available locales if no list provided
+							if (!confLocalesList && localesList.indexOf(loc) < 0) {
+								localesList.push(loc);
+							}
+						});
+					});
+				},
+
 				resetPlugin = function () {
 					bundlesList = [];
 					confLocalesList = undefined;
-					mid = undefined;
+					pluginMid = undefined;
 					parentRequire = undefined;
 				};
 
@@ -242,48 +285,19 @@ define(['./i18n/common', "module"], function (common, module) {
 				return;
 			}
 
-			localesList = confLocalesList;
-			if (!localesList) {
-				// list all existing locales
-				localesList = [];
-				bundlesList.forEach(function (bundle) {
-					var root = parentRequire(bundle);
-					eachProp(root, function (loc) {
-						if (localesList.indexOf(loc) < 0) {
-							localesList.push(loc);
-						}
-					});
-				});
-			}
-			if (localesList.indexOf("root") < 0) {
-				localesList.push("root");
-			}
+			// Run through every bundles to know which locales are available for each module.
+			init();
 
-
-
-			// write a nls layer for each locale
+			// calculate the nls layer for each locale
 			bundlesList.forEach(function (bundle) {
 				var name = parseName(bundle),
-					root,
-					parent,
-					availableLocales = [],
-					pseudoRoots = {};
-
-
-				// todo if name.requestedLocale
-				// rassembler les eachProp avec au dessus
-				root = parentRequire(bundle);
-				eachProp(root, function (loc) {
-					if (loc !== "root") {
-						availableLocales.push(loc);
-						parent = common.getParentLocale(loc);
-						while (parent && parent !== "root") {
-							pseudoRoots[parent] = pseudoRoots[parent] || {};
-							pseudoRoots[parent][loc] = true;
-							parent = common.getParentLocale(parent);
-						}
-					}
-				});
+					normalizeRoot = function (bundle, name) {
+						bundle.root = (bundle.root === true || bundle.root === 1) ?
+							requirejs(name.prefix + "root/" + name.suffix) : bundle.root;
+						return bundle;
+					},
+					root = normalizeRoot(requirejs(bundle), name);
+				// TODO: if name.requestedLocale a different optimization is possible
 
 				localesList.forEach(function (loc) {
 					var result = {},
@@ -294,66 +308,65 @@ define(['./i18n/common', "module"], function (common, module) {
 
 					if (loc !== "root") {
 						while (locale && locale !== "root") {
-							if (availableLocales.indexOf(locale) >= 0) {
-								localizedBundle = parentRequire(name.prefix + locale + "/" + name.suffix);
+							if (root[locale]) {
+								localizedBundle = requirejs(name.prefix + locale + "/" + name.suffix);
 								mixin(result, localizedBundle);
 							}
 							locale = common.getParentLocale(locale);
 						}
-						localizedBundle = root.root === true || root.root === 1 ? parentRequire(name.prefix + "root/" + name.suffix) : root.root;
+						localizedBundle = root.root;
 						mixin(result, localizedBundle);
 
 						result._flattened = true;
-						result._pseudoRoot = pseudoRoots[loc] || {};
-
-						layersContent[loc] += 'define("' + name.prefix + loc + "/" + name.suffix + '",' + JSON.stringify(result) + ");";
+						result._pseudoRoot = pseudoRoots[bundle][loc] || {};
 					} else {
 						mixin(result, root);
-						result.root = result.root === true || result.root === 1 ? parentRequire(name.prefix + "root/" + name.suffix) : result.root;
-						layersContent[loc] += 'define("' + name.prefix + loc + "/" + name.suffix + '",' + JSON.stringify(result) + ");";
 					}
 
+					layersContent[loc] += 'define("' + name.prefix + loc + "/" +
+						name.suffix + '",' + JSON.stringify(result) + ");";
 				});
 			});
 
 			// This assumes nodejs
 			eachProp(layersContent, function (loc, content) {
 				var fs = require("fs"),
-					matchP = data.path.match(/^(.*\/)(.*)(\.js)$/),
-					path = matchP[1] + "nls/" + matchP[2] + "_" + loc + ".js",
-					parts = path.split("/"),
-					tmp = [],
-					matchM = data.name.match(/^(.*\/)(.*)$/),
-					mid = matchM[1] + "nls/" + matchM[2] + "_" + loc;
+					createPath = function (path) {
+						var parts = path.split("/"),
+							tmp = [];
+
+						while (!fs.existsSync(parts.join("/") + "/")) {
+							tmp.push(parts.pop());
+						}
+						while (tmp.length) {
+							parts.push(tmp.pop());
+							fs.mkdirSync(parts.join("/"));
+						}
+					},
+
+					match = data.path.match(/^(.*\/)(.*)(\.js)$/),
+					dir = match[1] + "nls/",
+					filename = match[2] + "_" + loc + ".js",
+					mid = layerMid + "_" + loc;
 
 				content += "define('" + mid + "', true);";
 
 				// Create path
-				parts.pop();
-				while (!fs.existsSync(parts.join("/") + "/")) {
-					tmp.push(parts.pop());
-				}
-				while (tmp.length) {
-					parts.push(tmp.pop());
-					fs.mkdirSync(parts.join("/"));
-				}
-
-				fs.writeFileSync(path, content);
+				createPath(dir);
+				fs.writeFileSync(dir + filename, content);
 			});
 
-			console.log(layersContent);
-			console.log(data.name);
 
+			// Init config structure
 			i18nConf = {
 				config: {}
 			};
-			i18nConf.config[mid] = {
+			i18nConf.config[pluginMid] = {
 				bundlesMap: {},
 				localesMap: {}
 			};
-			i18nConf.config[mid].bundlesMap[data.name] = bundlesList;
-			i18nConf.config[mid].localesMap[data.name] = localesList;
-			//changer format config pour coller au mail addresser à christophe
+			i18nConf.config[pluginMid].bundlesMap[layerMid] = bundlesList;
+			i18nConf.config[pluginMid].localesMap[layerMid] = localesList;
 
 			// write i18n config on the layer
 			write("require.config(" + JSON.stringify(i18nConf) + ")");
