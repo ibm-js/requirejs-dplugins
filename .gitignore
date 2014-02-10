@@ -10,6 +10,7 @@ lib-cov
 pids
 logs
 results
+lcov.info
 
 node_modules
 npm-debug.log
