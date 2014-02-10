@@ -152,16 +152,21 @@ define(['./i18n/common', "module"], function (common, module) {
 			}
 		};
 
+	/* jshint -W074 */
 	return {
 		load: function (name, req, onLoad, config) {
 			config = config || {};
 
-			var moduleConfig = module.config() || {},
+			var moduleConfig = {},
 				masterMid,
 				layer;
 
+			// Copy the config
+			mixin(moduleConfig, typeof module.config === "function" ? module.config() || {} : {});
+
+
 			moduleConfig.enhanceLayer = moduleConfig.enhanceLayer === undefined ? true : moduleConfig.enhanceLayer;
-				
+
 			// Parse name and set the locale if a top level bundle is required
 			name = parseName(name);
 			name.requestedLocale = name.requestedLocale || common.getLocale(moduleConfig.locale || config.locale);
@@ -198,5 +203,8 @@ define(['./i18n/common', "module"], function (common, module) {
 				return;
 			}
 		}
+
+
 	};
+	/* jshint +W074 */
 });
