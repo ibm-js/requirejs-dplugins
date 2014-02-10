@@ -17,7 +17,7 @@ define(['./i18n/common', "module", "require"], function (common, module, require
 		bundlesList = [],
 		confLocalesList,
 		pluginMid,
-	
+
 		// Simple function to mix in properties from source into target,
 		// but only if target does not already have a property of the same name.
 		// This is not robust in IE for transferring methods that match
@@ -236,7 +236,7 @@ define(['./i18n/common', "module", "require"], function (common, module, require
 		},
 		/* jshint +W074 */
 
-		write: function (pluginName, moduleName, write) {
+		write: function (pluginName, moduleName) {
 			pluginMid = pluginMid || pluginName;
 			bundlesList.push(moduleName);
 		},
@@ -277,7 +277,6 @@ define(['./i18n/common', "module", "require"], function (common, module, require
 					bundlesList = [];
 					confLocalesList = undefined;
 					pluginMid = undefined;
-					parentRequire = undefined;
 				};
 
 			if (!data.name) {

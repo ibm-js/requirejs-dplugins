@@ -2,14 +2,10 @@ require.config({
 	config: {
 		"i18n": {
 			bundlesMap: {
-				"myapp/nls/bundleA": "myapp/nls/test",
-				"myapp/nls/bundleB": "myapp/nls/test"
+				"myapp/nls/test": ["myapp/nls/bundleA", "myapp/nls/bundleB"]
 			},
 			localesMap: {
-				"myapp/nls/test": {
-					fr: true,
-					root: true
-				}
+				"myapp/nls/test": ["fr", "root"]
 			}
 		}
 	}
