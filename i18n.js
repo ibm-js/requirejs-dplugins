@@ -120,6 +120,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			}
 		};
 
+	/* jshint -W074 */
 	return {
 		/* jshint -W074 */
 		load: function (name, req, onLoad, config) {
@@ -209,5 +210,8 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			}
 			build.reset();
 		}
+
+
 	};
+	/* jshint +W074 */
 });
