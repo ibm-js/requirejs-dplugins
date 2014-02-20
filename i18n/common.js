@@ -1,4 +1,4 @@
-define(["../maybe!./parentLocale"], function (parentLocale) {
+define(["./parentLocale"], function (parentLocale) {
 
 	// regexp for reconstructing the master bundle name from parts of the regexp match
 	// "foo/bar/baz/nls/en-ca/foo".match(nlsRegExp) gives:
@@ -8,7 +8,7 @@ define(["../maybe!./parentLocale"], function (parentLocale) {
 	// so, if match[3] is blank, it means this is the top bundle definition.
 	var nlsRegExp = /(^.*(?:^|\/)nls\/)([^\/]*)\/?([^\/]*)$/;
 
-	parentLocale = parentLocale || {};
+	parentLocale = parentLocale;
 
 	return {
 		eachProp: function (obj, func) {

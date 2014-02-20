@@ -132,7 +132,7 @@ define(["./common", "require"], function (common, requirejs) {
 						var parts = path.split("/"),
 							tmp = [];
 
-						while (!fs.existsSync(parts.join("/"))) {
+						while (parts.length && !fs.existsSync(parts.join("/"))) {
 							tmp.push(parts.pop());
 						}
 						while (tmp.length) {

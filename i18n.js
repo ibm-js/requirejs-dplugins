@@ -120,7 +120,6 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			}
 		};
 
-	/* jshint -W074 */
 	return {
 		/* jshint -W074 */
 		load: function (name, req, onLoad, config) {
@@ -134,7 +133,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			mixin(moduleConfig, typeof module.config === "function" ? module.config() || {} : {});
 
 			if (config.isBuild) {
-				localesList = config.localesList;
+				localesList = moduleConfig.localesList;
 				onLoad();
 				return;
 			}
@@ -191,7 +190,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 					bundle._pseudoRoot = {};
 					bundle._flattened = true;
 				}
-				write.asModule(moduleName, "define(" + JSON.stringify(bundle) + ")");
+				write.asModule(pluginName + "!" + moduleName, "define(" + JSON.stringify(bundle) + ")");
 			} else {
 				build.addBundleToNlsLayer(name);
 			}
@@ -210,8 +209,5 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			}
 			build.reset();
 		}
-
-
 	};
-	/* jshint +W074 */
 });
