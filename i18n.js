@@ -5,6 +5,8 @@
 define(["./i18n/common", "./i18n/build", "module"], function (common, build, module) {
 
 	var localesList,
+		writePluginFile,
+
 		mixin = common.mixin,
 		eachProp = common.eachProp,
 		parseName = common.parseName,
@@ -196,6 +198,10 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 			}
 		},
 
+		writeFile: function (pluginName, resource, requirejs, writeFile) {
+			writePluginFile = writeFile;
+		},
+
 		onLayerEnd: function (write, data) {
 			if (data.name && data.path) {
 				var layersContent;
@@ -204,7 +210,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 
 				layersContent = build.getLayersContent();
 
-				build.writeLayers(layersContent, data);
+				build.writeLayers(layersContent, data, writePluginFile);
 				build.writeConfig(module.id, data, write);
 			}
 			build.reset();

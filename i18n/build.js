@@ -16,15 +16,6 @@ define(["./common", "require"], function (common, requirejs) {
 			return layerMid;
 		},
 
-		getPath = function (data, loc) {
-			var match = data.path.match(/^(.*\/)(.*)(\.js)$/);
-
-			return {
-				directory: match[1] + "nls",
-				filename: match[2] + "_" + loc + ".js"
-			};
-		},
-
 		getAllAvailableLocales = function () {
 			localesList = [];
 			bundlesList.forEach(function (name) {
@@ -124,29 +115,10 @@ define(["./common", "require"], function (common, requirejs) {
 			return layersContent;
 		},
 
-		// This function assumes nodejs
-		writeLayers: function (layersContent, data) {
+		writeLayers: function (layersContent, data, writePluginFile) {
 			eachProp(layersContent, function (loc, content) {
-				var fs = require("fs"),
-					createPath = function (path) {
-						var parts = path.split("/"),
-							tmp = [];
-
-						while (parts.length && !fs.existsSync(parts.join("/"))) {
-							tmp.push(parts.pop());
-						}
-						while (tmp.length) {
-							parts.push(tmp.pop());
-							fs.mkdirSync(parts.join("/"));
-						}
-					},
-					path = getPath(data, loc);
-
 				content += "define('" + getLayerMid(data) + "_" + loc + "', true);";
-
-				// Create path
-				createPath(path.directory);
-				fs.writeFileSync(path.directory + "/" + path.filename, content);
+				writePluginFile(getLayerMid(data) + "_" + loc + ".js", content);
 			});
 		},
 
