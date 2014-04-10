@@ -123,7 +123,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 		};
 
 	return {
-		/* jshint -W074 */
+		/* jshint maxcomplexity:15 */
 		load: function (name, req, onLoad, config) {
 			config = config || {};
 
@@ -180,7 +180,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 				return;
 			}
 		},
-		/* jshint +W074 */
+		/* jshint  maxcomplexity:10 */
 
 		write: function (pluginName, moduleName, write) {
 			var name = parseName(moduleName),

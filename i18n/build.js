@@ -10,8 +10,8 @@ define(["./common", "require"], function (common, requirejs) {
 		getLayerMid = function (data) {
 			var match;
 			if (!layerMid) {
-				match = data.name.match(/^(.*\/)(.*)$/);
-				layerMid = match[1] + "nls/" + match[2];
+				match = data.name.match(/^(.*\/)?(.*)$/);
+				layerMid = (match[1] || "") + "nls/" + match[2];
 			}
 			return layerMid;
 		},
@@ -82,6 +82,9 @@ define(["./common", "require"], function (common, requirejs) {
 
 		setLocalesList: function (locList) {
 			localesList = locList ? locList.slice() : getAllAvailableLocales();
+			if (localesList.indexOf("root") < 0) {
+				localesList.push("root");
+			}
 		},
 
 		reset: function () {
@@ -102,13 +105,16 @@ define(["./common", "require"], function (common, requirejs) {
 
 					layersContent[loc] = layersContent[loc] || "";
 
+					var mid;
 					if (loc !== "root") {
+						mid = name.prefix + loc + "/" + name.suffix;
 						result._flattened = true;
 						result._pseudoRoot = pseudoRoots[loc] || {};
+					} else {
+						mid = name.prefix + name.suffix;
 					}
 
-					layersContent[loc] += 'define("' + name.prefix + loc + "/" +
-						name.suffix + '",' + JSON.stringify(result) + ");";
+					layersContent[loc] += 'define("' + mid + '",' + JSON.stringify(result) + ");";
 				});
 			});
 

@@ -1,8 +1,11 @@
 "use strict";
 
 module.exports = function (grunt) {
-
-	var filesList = ["Gruntfile.js", "*.js", "i18n/*.js", "*.json"];
+	var filesList = [
+		"*.js",
+		"*.json",
+		"i18n/*.js"
+	];
 
 
 	// Project configuration.
