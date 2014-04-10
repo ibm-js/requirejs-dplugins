@@ -28,7 +28,7 @@ define({
                 // { browserName: "internet explorer", version: "11", platform: "Windows 8.1" },
                 // { browserName: "internet explorer", version: "10", platform: "Windows 8" },
                 { browserName: "firefox"}, //, version: "25", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ] },
-                { browserName: "chrome", version: "31"}//, version: "", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ] },
+                { browserName: "chrome"}//, version: "", platform: [ /*"OS X 10.6", "Linux", */ "Windows 7" ] },
                 // { browserName: "safari", version: "6", platform: [ "OS X 10.8" ] },
 
                 // // Mobile
