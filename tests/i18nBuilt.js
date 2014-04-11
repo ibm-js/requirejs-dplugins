@@ -7,7 +7,7 @@ define([
 		return that.remote
 			.get(require.toUrl('./testBuilt.html?' + locale + '&' + options))
 			// TODO waitForCondition
-			.wait(15000) 
+			.wait(10000) 
 			.elementById('layer')
 			.text()
 			.then(function (txt) {
