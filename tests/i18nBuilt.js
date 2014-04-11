@@ -6,7 +6,8 @@ define([
 	var testLayer = function (that, options, locale, layerResult, layerHint, bundleResult, bundleHint) {
 		return that.remote
 			.get(require.toUrl('./testBuilt.html?' + locale + '&' + options))
-			.wait(5000)
+			// TODO waitForCondition
+			.wait(15000) 
 			.elementById('layer')
 			.text()
 			.then(function (txt) {
@@ -158,7 +159,7 @@ define([
 			return testLayer(this, 'f&f&t',
 				'en',
 				'En from Layer Bundle A En from Layer Bundle B',
-				'The layer en should not be found',
+				'The layer en should be found',
 				'Root Text from Bundle C Root Text from Bundle D',
 				'The best match should be found');
 		},
