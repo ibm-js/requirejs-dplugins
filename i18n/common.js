@@ -8,8 +8,6 @@ define(["./parentLocale"], function (parentLocale) {
 	// so, if match[3] is blank, it means this is the top bundle definition.
 	var nlsRegExp = /(^.*(?:^|\/)nls\/)([^\/]*)\/?([^\/]*)$/;
 
-	parentLocale = parentLocale;
-
 	return {
 		eachProp: function (obj, func) {
 			var prop;
@@ -24,7 +22,9 @@ define(["./parentLocale"], function (parentLocale) {
 			if (!locale) {
 				locale = typeof navigator === "undefined" ? "root" :
 					(navigator.language ||
-					navigator.userLanguage || "root");
+					// IE <= 10
+					navigator.userLanguage || 
+					"root");
 			}
 			// just to be extra-sure
 			return locale.toLowerCase();

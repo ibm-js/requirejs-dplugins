@@ -41,6 +41,13 @@ module.exports = function (grunt) {
 		},
 
 		intern: {
+			remote: {
+				options: {
+					runType: "runner",
+					config: "tests/intern",
+					reporters: ["console"]
+				}
+			},
 			sauce: {
 				options: {
 					runType: 'runner', // defaults to 'client'

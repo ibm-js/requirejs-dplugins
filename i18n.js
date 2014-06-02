@@ -125,6 +125,11 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 	return {
 		/* jshint maxcomplexity:15 */
 		load: function (name, req, onLoad, config) {
+			if (!name) {
+				onLoad();
+				return;
+			}
+			
 			config = config || {};
 
 			var moduleConfig = {},
