@@ -23,7 +23,7 @@ define(["./parentLocale"], function (parentLocale) {
 				locale = typeof navigator === "undefined" ? "root" :
 					(navigator.language ||
 					// IE <= 10
-					navigator.userLanguage || 
+					navigator.userLanguage ||
 					"root");
 			}
 			// just to be extra-sure

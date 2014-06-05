@@ -1,13 +1,13 @@
 language: node_js
 node_js: '0.10'
 before_script:
-  - npm install -g grunt-cli
-script: 
-  - grunt jshint
-  - grunt intern:sauce
+- npm install -g grunt-cli
+script:
+- grunt jshint
+- grunt intern:sauce
 env:
   global:
-  - secure: XLYGQvZeJm/PUnzGGefzFEd5qot9FBSoNiZn3Fx+ctNQP+WIB1K1NiqG/Dxb2+l563GpRhMxlBwrAlMVxbWT82uBlCQP+PLJbsv7sW3pUVRSf90dBtHGTxLIaPpTkdKNhI1gzvmtdSMUrgSneuEX0iN2Ij5DrIYF//2Diyk7VqM=
-  - secure:I1QVQPjcSS16dfyoVD8hFcgbb3q/66nO/lHo03sbCgvUGlQkAaG0WQBDnEPvldmUsPlOPfmJHpxvqSeenpoqDloXy5OqnO4Qj2NZLXk2Bfc3kGn1LTPbT7Qx5cChEJlt3tjjdokj06xI0/N31DL2keJ2ITEUyZzdhsjeBLdlUP0=
-  - secure:oMm8aXLfkPltyoG3lCn30CgHDK4qThNfdbmfvI2dUm3QDG+oMMS/LYDTZT9HASFRrTIMhrbUU8tIwdkFRU3IMISncZfdpm7v67hj2dT4ScDj5pahkGWVeD+ObcfP1kE129COpEmSpgq22qm8d+N1G348tDuzosYe+NN/FslYyY0=
-  - secure:PlQTzRQ1ci4/kBo9WIK0JYZipPJ2GeJjSYn/NNJWiHDr4t46AJfip61LpSw88GbgCNkL7JEVygDsaZB7AUP7DfX0o4iqEovMKuwSzcmstGHgQT+GihVff/avYvygPdPn5WpkCUorIB9jrx9FBqSMNWH9bvXYc525w9lY4+X/bfE=
+  - secure: W5vbUYV3APtbtMw+dcogNIAB+G90nO9XTjYRBCkBMmRWOBAWan2BG3/9azENq6RHa8+J9fxd2VK/kcUz9sHTCezY1SfsUHmEKBR9/RiqFHi3HpucaLpqncGURvvAbwKCXmVnCbmEVBY6GCgQn2R/7bHEjp/gdFy7Q3oojnOtB4Q=
+  - secure: XTEd9KZ38uk0I+HfamlqGfmuKXFXu62IJVGEbO4A2IKt/GFyNRoDiXEhGuOZgvlccl3tjkigO7paNyC4C8KjFPbjI8aGuLvBQiT4YfeXRIWFRKGdsTLPZttMwUQ8tCXgRZ1eGJP+X6gVTLnJF4Jvk4wsoq0pQQAvKXDGClrcue4=
+  - secure: c/dHGRCWmPjwUJ/Cl9tlqFLXS7ZlIK0uORzaCQdTDakuBJXs1KbKehryLKWekThoXNyWqBujANaSieePcAm5YwLgfkTZl1Gk5TVxAiyG1/4hpW53esQvHh53qrMD6aQTJvx333ih+Xh2MeRwU5CQs6QEKCq692duvFack4a86oY=
+  - secure: iS8HGzC/5DwV4Jy1l0DgvxxS9NaHAHtEvWK1qpebH91/Bick8dFtAHAjKNC5Ool/wNZUSZHfLZPt9YwyxL9/Zq3kMxF0UkfZ3mdJkweRS7qiMN2/oKVWv5yvjkHLM0/rBEpGF7prYCcCtjM1VYBXm0AfqIWGitPEXH+0J2spLwc=
