@@ -52,7 +52,7 @@ module.exports = function (grunt) {
 				options: {
 					runType: 'runner', // defaults to 'client'
 					config: 'tests/sauce',
-					reporters: ['console', 'lcov']
+					reporters: ['console']
 				}
 			},
 			local: {
