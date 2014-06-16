@@ -1,4 +1,5 @@
 require.config({
+	context: context,
 	config: {
 		"i18n": {
 			bundlesMap: {
@@ -16,8 +17,7 @@ define("myapp/test", [
 	"i18n!myapp/nls/bundleB"
 ], function (bundleA, bundleB) {
 	return {
-		log: function (element) {
-			element.innerHTML = bundleA.MSG + " " + bundleB.MSG;
-		}
+		bundleA: bundleA.MSG,
+		bundleB: bundleB.MSG
 	};
 });

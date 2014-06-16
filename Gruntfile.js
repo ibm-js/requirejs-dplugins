@@ -4,7 +4,8 @@ module.exports = function (grunt) {
 	var filesList = [
 		"*.js",
 		"*.json",
-		"i18n/*.js"
+		"i18n/*.js",
+		"tests/*.js"
 	];
 
 
@@ -48,17 +49,10 @@ module.exports = function (grunt) {
 					reporters: ["console"]
 				}
 			},
-			sauce: {
-				options: {
-					runType: 'runner', // defaults to 'client'
-					config: 'tests/sauce',
-					reporters: ['console']
-				}
-			},
 			local: {
 				options: {
 					runType: 'runner', // defaults to 'client'
-					config: 'tests/local',
+					config: 'tests/intern.local',
 					reporters: ['console', 'lcov']
 				}
 			}
@@ -73,9 +67,12 @@ module.exports = function (grunt) {
 
 
 	// By default, lint and run all tests.
-	grunt.registerTask("default", ["jsbeautifier", "lineending", "jshint", "intern:local"]);
+	grunt.registerTask("default", ["jsbeautifier", "lineending", "jshint", "intern:remote"]);
 
 	// Just lint
 	grunt.registerTask("lint", ["jsbeautifier", "lineending", "jshint"]);
+
+	// Travis build
+	grunt.registerTask("travis", ["jshint", "intern:remote"]);
 
 };

@@ -129,7 +129,7 @@ define(["./i18n/common", "./i18n/build", "module"], function (common, build, mod
 				onLoad();
 				return;
 			}
-			
+
 			config = config || {};
 
 			var moduleConfig = {},

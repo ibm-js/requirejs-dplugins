@@ -3,8 +3,7 @@ node_js: '0.10'
 before_script:
 - npm install -g grunt-cli
 script:
-- grunt jshint
-- grunt intern:sauce
+- grunt travis
 env:
   global:
   - secure: W5vbUYV3APtbtMw+dcogNIAB+G90nO9XTjYRBCkBMmRWOBAWan2BG3/9azENq6RHa8+J9fxd2VK/kcUz9sHTCezY1SfsUHmEKBR9/RiqFHi3HpucaLpqncGURvvAbwKCXmVnCbmEVBY6GCgQn2R/7bHEjp/gdFy7Q3oojnOtB4Q=

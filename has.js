@@ -53,7 +53,7 @@ define(["module"], function (module) {
 			if (tokens[i] !== ":" && tokens[i] !== "?" && tokens[i + 1] !== "?") {
 				// The module could be another plugin
 				var parts = tokens[i].split("!");
-				parts = parts.map(normalize);
+				parts[0] = normalize(parts[0]);
 				tokens[i] = parts.join("!");
 			}
 		}
