@@ -61,7 +61,8 @@ define({
 			version: "7.1",
 			platform: "OS X 10.9",
 			name: "requirejs-dplugins"
-		},*/ {
+		},*/
+		{
 			browserName: "ipad",
 			version: "7.0",
 			platform: "OS X 10.9",
