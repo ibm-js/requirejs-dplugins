@@ -33,46 +33,40 @@ define({
 			version: "33",
 			platform: "Windows 7",
 			name: "requirejs-dplugins"
-		}, {
-			browserName: "safari",
-			version: "7",
-			platform: "OS X 10.9",
-			name: "requirejs-dplugins"
-		},
+		}
+		
+		// Disabled because environments are often unavailable on sauce and randomly break the build.
+		// {
+			// browserName: "safari",
+			// version: "7",
+			// platform: "OS X 10.9",
+			// name: "requirejs-dplugins"
+		// }
 
 		// Mobile
-		/*{
-			browserName: "android",
-			version: "4.3",
-			platform: "Linux",
-			name: "requirejs-dplugins"
-		}, {
-			browserName: "android",
-			version: "4.2",
-			platform: "Linux",
-			name: "requirejs-dplugins"
-		}, {
-			browserName: "iphone",
-			version: "7.0",
-			platform: "OS X 10.9",
-			name: "requirejs-dplugins"
-		}, {
-			browserName: "iphone",
-			version: "7.1",
-			platform: "OS X 10.9",
-			name: "requirejs-dplugins"
-		},*/
-		{
-			browserName: "ipad",
-			version: "7.0",
-			platform: "OS X 10.9",
-			name: "requirejs-dplugins"
-		}, {
-			browserName: "ipad",
-			version: "7.1",
-			platform: "OS X 10.9",
-			name: "requirejs-dplugins"
-		}
+		// Disabled because environments are often unavailable on sauce and randomly break the build.
+		// {
+			// browserName: "iphone",
+			// version: "7.0",
+			// platform: "OS X 10.9",
+			// name: "requirejs-dplugins"
+		// }, {
+			// browserName: "iphone",
+			// version: "7.1",
+			// platform: "OS X 10.9",
+			// name: "requirejs-dplugins"
+		// },
+		// {
+			// browserName: "ipad",
+			// version: "7.0",
+			// platform: "OS X 10.9",
+			// name: "requirejs-dplugins"
+		// }, {
+			// browserName: "ipad",
+			// version: "7.1",
+			// platform: "OS X 10.9",
+			// name: "requirejs-dplugins"
+		// }
 
 	],
 
