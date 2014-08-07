@@ -1,8 +1,9 @@
 define(["module"], function (module) {
 	var cache = (module.config && module.config()) || {};
+	var tokensRE = /[\?:]|[^:\?]+/g;
 
 	function resolve(resource, has, isBuild) {
-		var tokens = resource.match(/[\?:]|[^:\?]+/g);
+		var tokens = resource.match(tokensRE);
 		var i = 0;
 		var get = function (skip) {
 			var term = tokens[i++];
@@ -24,11 +25,20 @@ define(["module"], function (module) {
 						return get(skip);
 					}
 				}
-				// a module
-				return term;
+				// A module or empty string.
+				// This allows to tell apart "undefined flag at build time" and "no module required" cases.
+				return term || "";
 			}
 		};
 		return get();
+	}
+
+	function forEachModule(tokens, callback) {
+		for (var i = 0; i < tokens.length; i++) {
+			if (tokens[i] !== ":" && tokens[i] !== "?" && tokens[i + 1] !== "?") {
+				callback(tokens[i], i);
+			}
+		}
 	}
 
 	var has = function (name) {
@@ -42,21 +52,18 @@ define(["module"], function (module) {
 	has.cache = cache;
 
 	has.add = function (name, test, now, force) {
-		(typeof cache[name] === "undefined" || force) && (cache[name] = test);
-		return now && has(name);
+		if (!has("builder")) {
+			(typeof cache[name] === "undefined" || force) && (cache[name] = test);
+			return now && has(name);
+		}
 	};
 
 	has.normalize = function (resource, normalize) {
-		var tokens = resource.match(/[\?:]|[^:\?]+/g);
+		var tokens = resource.match(tokensRE);
 
-		for (var i = 0; i < tokens.length; i++) {
-			if (tokens[i] !== ":" && tokens[i] !== "?" && tokens[i + 1] !== "?") {
-				// The module could be another plugin
-				var parts = tokens[i].split("!");
-				parts[0] = normalize(parts[0]);
-				tokens[i] = parts.join("!");
-			}
-		}
+		forEachModule(tokens, function (module, index) {
+			tokens[index] = normalize(module);
+		});
 
 		return tokens.join("");
 	};
@@ -64,7 +71,7 @@ define(["module"], function (module) {
 	has.load = function (resource, req, onLoad, config) {
 		config = config || {};
 
-		if (!resource || config.isBuild) {
+		if (!resource) {
 			onLoad();
 			return;
 		}
@@ -79,10 +86,20 @@ define(["module"], function (module) {
 	};
 
 	has.addModules = function (pluginName, resource, addModules) {
+		var modulesToInclude = [];
+
 		var mid = resolve(resource, has, true);
 		if (mid) {
-			addModules([mid]);
+			modulesToInclude.push(mid);
+		} else if (typeof mid === "undefined") {
+			// has expression cannot be resolved at build time so include all the modules just in case.
+			var tokens = resource.match(tokensRE);
+			forEachModule(tokens, function (module) {
+				modulesToInclude.push(module);
+			});
 		}
+
+		addModules(modulesToInclude);
 	};
 
 	return has;
