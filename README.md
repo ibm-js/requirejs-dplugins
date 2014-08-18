@@ -38,30 +38,22 @@ Then install dependencies with bower (or manually from github if you prefer to):
 	$ cd requirejs-dplugins
 	$ bower install
 
-## Documentation
 
-### has
-See [docs/has.md](./docs/has.md).
+## has
+This plugin provides an extensible API to manage feature detection.
 
-### i18n
-See [docs/i18n.md](./docs/has.md).
+See [docs/has.md](./docs/has.md) and [samples/has.html](./samples/has.html) for documentation and sample.
 
+## i18n
+This plugin provides provides an API to handle string translation.
 
+See [docs/i18n.md](./docs/i18n.md) and [samples/i18n.html](./samples/i18n.html) for documentation and sample.
 
-### maybe
-This plugin allows to require modules that may or may not exist. If the module is not found it will be `undefined`.
+## maybe
+This plugin allows to require modules that may or may not exist.
 
+See [docs/maybe.md](./docs/maybe.md) and [samples/maybe.html](./samples/maybe.html) for documentation and sample.
 
-#### Sample usage
-```
-require(["maybe!a/module/id"], function(module){
-    if (module === undefined) {
-        //do something when module IS NOT found
-    } else {
-        //do something else 2when module IS found
-    }
-});
-```
 
 
 ## Credits

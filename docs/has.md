@@ -5,7 +5,7 @@ title: requirejs-dplugins/has
 
 # requirejs-dplugins/has
 
-`requirejs-dplugins/has` provides standardized feature detection with an extensible API. It also implements the
+`requirejs-dplugins/has` provides an extensible API to manage feature detection. It also implements the
 [requirejs plugin api](http://requirejs.org/docs/plugins.html) to provide conditional module loading.
 
 It is based on the conventions in the [has.js project](https://github.com/phiggins42/has.js).
