@@ -27,7 +27,7 @@ define(["./common", "require"], function (common, requirejs) {
 				var root = requirejs(getMasterMid(name));
 
 				eachProp(root, function (loc) {
-					if (root.loc && localesList.indexOf(loc) < 0) {
+					if (root[loc] && localesList.indexOf(loc) < 0) {
 						localesList.push(loc);
 					}
 				});
