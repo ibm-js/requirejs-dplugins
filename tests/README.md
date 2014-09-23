@@ -2,13 +2,19 @@
 This directory contains the plugins tests.
 
 ## Setup
-Before starting, install Intern and RequireJS by running
+You will need Bower and Grunt. So if they are not installed, install them using:
+```
+$ npm install -g grunt-cli
+$ npm install -g bower
+```
 
+Once this is done you can run the following commands to setup the project dependencies:
 ```
 $ npm install
+$ bower install
 ```
 
-Also, if you are going to run against Sauce Labs, then
+Also, if you are going to run against Sauce Labs, you need to
 setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
 on https://saucelabs.com/appium/tutorial/3.
 
@@ -18,7 +24,7 @@ on https://saucelabs.com/appium/tutorial/3.
 Run:
 
 ```
-$ node node_modules/intern/runner.js config=tests/intern
+$ grunt intern:remote
 ```
 ## Running the unit tests locally
 
@@ -33,5 +39,5 @@ $ java -jar selenium-server-standalone-2.37.0.jar
 3) Run the tests:
 
 ```
-$ node node_modules/intern/runner.js config=tests/intern.local
+$ grunt intern:local
 ```

@@ -1,6 +1,6 @@
 {
 	"name": "requirejs-dplugins",
-	"version": "0.2.3",
+	"version": "0.3.0-alpha",
 	"description": "AMD plugins for RequireJS",
 	"dependencies": {
 		"dojo": ">=1.9.1",
