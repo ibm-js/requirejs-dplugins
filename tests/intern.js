@@ -96,5 +96,5 @@ define({
 	suites: ["requirejs-dplugins/tests/all"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /(?:requirejs(\/|\\)|tests|node_modules)/
+	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|tests|node_modules)/
 });
