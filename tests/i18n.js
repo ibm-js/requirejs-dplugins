@@ -14,10 +14,10 @@ define([
 		context = getNewContext();
 		require.config({
 			context: context,
-			baseUrl: "../../",
+			baseUrl: "../../../requirejs-dplugins",
 			packages: [{
 				name: "myapp",
-				location: "tests/testApp/dist/myapp"
+				location: "tests/resources/app/dist/myapp"
 			}],
 			config: {
 				i18n: {

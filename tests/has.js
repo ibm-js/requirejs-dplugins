@@ -9,7 +9,7 @@ define([
 		setup: function () {
 			moduleRequire = require.config({
 				context: "module",
-				baseUrl: "../../",
+				baseUrl: "../../../requirejs-dplugins",
 				config: {
 					has: {
 						"config-feature": true,
@@ -99,10 +99,10 @@ define([
 		setup: function () {
 			pluginRequire = require.config({
 				context: "plugin",
-				baseUrl: "../../",
+				baseUrl: "../../../requirejs-dplugins",
 				packages: [{
 					name: "modules",
-					location: "tests/testModules/"
+					location: "tests/resources/"
 				}],
 				config: {
 					has: {
@@ -116,28 +116,28 @@ define([
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!config-feature?modules/module1:modules/module2",
-				"has!config-feature2?modules/module1:modules/module2"
-			], dfd.callback(function (module1, module2) {
-				assert.strictEqual(module1.msg, "module 1",
-					"config-feature is true so has should resolve to module1");
-				assert.strictEqual(module2.msg, "module 2",
-					"config-feature2 is false so has should resolve to module2");
+				"has!config-feature?modules/has1:modules/has2",
+				"has!config-feature2?modules/has1:modules/has2"
+			], dfd.callback(function (has1, has2) {
+				assert.strictEqual(has1.msg, "module 1",
+					"config-feature is true so has should resolve to has1");
+				assert.strictEqual(has2.msg, "module 2",
+					"config-feature2 is false so has should resolve to has2");
 			}));
 		},
 		"ternary variation": function () {
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!config-feature?modules/module1",
-				"has!config-feature?:modules/module2",
-				"has!config-feature2?modules/module1",
-				"has!config-feature2?:modules/module2"
-			], dfd.callback(function (module1, undefined2, undefined1, module2) {
-				assert.strictEqual(module1.msg, "module 1",
-					"config-feature is true so has should resolve to module1");
-				assert.strictEqual(module2.msg, "module 2",
-					"config-feature2 is false so has should resolve to module2");
+				"has!config-feature?modules/has1",
+				"has!config-feature?:modules/has2",
+				"has!config-feature2?modules/has1",
+				"has!config-feature2?:modules/has2"
+			], dfd.callback(function (has1, undefined2, undefined1, has2) {
+				assert.strictEqual(has1.msg, "module 1",
+					"config-feature is true so has should resolve to has1");
+				assert.strictEqual(has2.msg, "module 2",
+					"config-feature2 is false so has should resolve to has2");
 				assert.isUndefined(undefined2);
 				assert.isUndefined(undefined1);
 			}));
@@ -146,33 +146,33 @@ define([
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!config-feature?modules/module1:config-feature2?modules/module2:modules/module3",
-				"has!config-feature2?modules/module1:config-feature?modules/module2:modules/module3",
-				"has!config-feature2?modules/module1:config-feature2?modules/module2:modules/module3"
-			], dfd.callback(function (module1, module2, module3) {
-				assert.strictEqual(module1.msg, "module 1");
-				assert.strictEqual(module2.msg, "module 2");
-				assert.strictEqual(module3.msg, "module 3");
+				"has!config-feature?modules/has1:config-feature2?modules/has2:modules/has3",
+				"has!config-feature2?modules/has1:config-feature?modules/has2:modules/has3",
+				"has!config-feature2?modules/has1:config-feature2?modules/has2:modules/has3"
+			], dfd.callback(function (has1, has2, has3) {
+				assert.strictEqual(has1.msg, "module 1");
+				assert.strictEqual(has2.msg, "module 2");
+				assert.strictEqual(has3.msg, "module 3");
 			}));
 		},
 		"undefined feature": function () {
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!undef-feature?modules/module1:modules/module2"
-			], dfd.callback(function (module2) {
-				assert.strictEqual(module2.msg, "module 2");
+				"has!undef-feature?modules/has1:modules/has2"
+			], dfd.callback(function (has2) {
+				assert.strictEqual(has2.msg, "module 2");
 			}));
 		},
 		"normalization": function () {
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!config-feature?./tests/testModules/module1",
-				"has!config-feature?./tests/testModules/plugin!./resources!test"
-			], dfd.callback(function (module1, plugin) {
-				assert.strictEqual(module1.msg, "module 1");
-				assert.strictEqual(plugin.res, "./resources!test");
+				"has!config-feature?./tests/resources/has1",
+				"has!config-feature?./tests/resources/hasplugin!./resources!test"
+			], dfd.callback(function (has1, hasplugin) {
+				assert.strictEqual(has1.msg, "module 1");
+				assert.strictEqual(hasplugin.res, "./resources!test");
 			}));
 		}
 

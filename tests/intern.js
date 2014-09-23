@@ -84,13 +84,17 @@ define({
 		port: 4444
 	},
 
+	loader: {
+		baseUrl: typeof window !== "undefined" ? "../../.." : ".."
+	},
 	useLoader: {
-		"host-browser": "../../node_modules/requirejs/require.js"
+		"host-node": "requirejs",
+		"host-browser": "../../../requirejs/require.js"
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: ["tests/has", "tests/i18n"],
+	suites: ["requirejs-dplugins/tests/all"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /^(?:tests|node_modules)/
+	excludeInstrumentation: /(?:requirejs(\/|\\)|tests|node_modules)/
 });

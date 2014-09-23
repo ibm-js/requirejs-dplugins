@@ -2,6 +2,9 @@
 	"name": "requirejs-dplugins",
 	"version": "0.2.3",
 	"description": "AMD plugins for RequireJS",
+	"dependencies": {
+		"requirejs": "2.1.x"
+	},
 	"keywords": [
 		"requirejs",
 		"amd",
