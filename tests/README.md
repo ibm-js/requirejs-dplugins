@@ -26,6 +26,7 @@ Run:
 ```
 $ grunt intern:remote
 ```
+
 ## Running the unit tests locally
 
 1) Download selenium server 2.37.0 (http://www.seleniumhq.org/download/) and start it on the default port (4444):
@@ -41,3 +42,10 @@ $ java -jar selenium-server-standalone-2.37.0.jar
 ```
 $ grunt intern:local
 ```
+
+## Running the tests from a browser
+
+Navigate to
+http://localhost/requirejs-dplugins/node_modules/intern/client.html?config=tests/intern&suites=requirejs-dplugins/tests/unit/all.
+
+(after adjusting for your path to the requirejs-dplugins directory)
