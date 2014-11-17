@@ -50,8 +50,8 @@ define([
 
 			// Load two modules that both use requirejs-dplugins/css! to load test1.css
 			cssRequire([
-				"tests/resources/CssWidget1",
-				"tests/resources/CssWidget2"
+				"tests/unit/resources/CssWidget1",
+				"tests/unit/resources/CssWidget2"
 			], d.callback(function () {
 				// test1.css should be automatically loaded (but just once, not twice) by the time
 				// this require() call completes.
@@ -75,7 +75,7 @@ define([
 			// Load another modules that uses requirejs-dplugins/css! to load the same test1.css,
 			// just to triple check that the CSS doesn't get reloaded
 			cssRequire([
-				"tests/resources/CssWidget3"
+				"tests/unit/resources/CssWidget3"
 			], d.callback(function () {
 				assert.strictEqual(getStyles().match(/test1/g).length, 1, "test1.css inserted once");
 			}));
@@ -88,7 +88,7 @@ define([
 
 			// Load module with double dependency on test2.css
 			cssRequire([
-				"tests/resources/CssWidget4"
+				"tests/unit/resources/CssWidget4"
 			], d.callback(function () {
 				// test2.css should be automatically loaded (but just once, not twice) by the time
 				// this require() call completes.
@@ -105,7 +105,7 @@ define([
 				config: {
 					"css": {
 						layersMap: {
-							"tests/css/module5.css": "tests/css/layer.css"
+							"tests/unit/css/module5.css": "tests/unit/css/layer.css"
 						}
 					}
 				},
@@ -113,7 +113,7 @@ define([
 			});
 
 			cssRequire([
-				"css!tests/css/module5.css"
+				"css!tests/unit/css/module5.css"
 			], d.callback(function () {
 				// layer.css should be loaded instead of module5.css
 				assert.strictEqual(getStyles().match(/cssLayer/g).length, 1, "layer.css inserted once");

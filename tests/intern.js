@@ -83,7 +83,7 @@ define({
 	},
 
 	// Non-functional test suite(s) to run in each browser
-	suites: ["requirejs-dplugins/tests/all"],
+	suites: ["requirejs-dplugins/tests/unit/all"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
 	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|tests|node_modules)/

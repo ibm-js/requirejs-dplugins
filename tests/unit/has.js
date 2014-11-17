@@ -9,7 +9,7 @@ define([
 		setup: function () {
 			moduleRequire = require.config({
 				context: "module",
-				baseUrl: "../../../requirejs-dplugins",
+				baseUrl: "../../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
 				config: {
 					has: {
 						"config-feature": true,
@@ -102,7 +102,7 @@ define([
 				baseUrl: "../../../requirejs-dplugins",
 				packages: [{
 					name: "modules",
-					location: "tests/resources/"
+					location: "tests/unit/resources/"
 				}],
 				config: {
 					has: {
@@ -168,8 +168,8 @@ define([
 			var dfd = this.async();
 
 			pluginRequire([
-				"has!config-feature?./tests/resources/has1",
-				"has!config-feature?./tests/resources/hasplugin!./resources!test"
+				"has!config-feature?./tests/unit/resources/has1",
+				"has!config-feature?./tests/unit/resources/hasplugin!./resources!test"
 			], dfd.callback(function (has1, hasplugin) {
 				assert.strictEqual(has1.msg, "module 1");
 				assert.strictEqual(hasplugin.res, "./resources!test");

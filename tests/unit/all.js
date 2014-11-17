@@ -1,4 +1,4 @@
-// Listing of all the plugin  tests
+// Listing of all the plugin unit tests
 define([
 	"./css",
 	"./has",
