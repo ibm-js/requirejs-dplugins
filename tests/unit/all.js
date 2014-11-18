@@ -2,5 +2,6 @@
 define([
 	"./css",
 	"./has",
-	"./i18n"
+	"./i18n",
+	"./jquery"
 ]);

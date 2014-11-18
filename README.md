@@ -4,6 +4,7 @@ Set of AMD plugins for RequireJS. It contains the following plugins:
 
  * [has](#has)
  * [i18n](#i18n)
+ * [jquery](#jquery)
  * [maybe](#maybe)
 
 ## Status
@@ -28,6 +29,7 @@ This project requires the following other project to run:
 _Bower_ release installation:
 
     $ bower install requirejs-dplugins
+    $ bower install jquery (if you are using the jquery plugin)
 
 _Manual_ master installation:
 
@@ -48,6 +50,11 @@ See [docs/has.md](./docs/has.md) and [samples/has.html](./samples/has.html) for 
 This plugin provides provides an API to handle string translation.
 
 See [docs/i18n.md](./docs/i18n.md) and [samples/i18n.html](./samples/i18n.html) for documentation and sample.
+
+## jquery
+This plugin loads the specified jquery modules if they are not loaded already.
+
+See [docs/jquery.md](./docs/jquery.md) for documentation.
 
 ## maybe
 This plugin allows to require modules that may or may not exist.

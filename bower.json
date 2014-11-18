@@ -6,6 +6,9 @@
 		"dojo": ">=1.9.1",
 		"requirejs": "2.1.x"
 	},
+	"devDependencies": {
+		"jquery": ">=2.1"
+	},
 	"keywords": [
 		"requirejs",
 		"amd",

@@ -82,9 +82,21 @@ define({
 		"host-browser": "../../../requirejs/require.js"
 	},
 
+	// Maximum duration of a test, in milliseconds
+	TEST_TIMEOUT: 300000, // 5 minutes
+
+	// Maximum time to wait for something (pollUntil, etc...)
+	WAIT_TIMEOUT: 180000, // 3 minutes
+
+	// Interval between two polling requests, in milliseconds (for pollUntil)
+	POLL_INTERVAL: 500, // 0.5 seconds
+
 	// Non-functional test suite(s) to run in each browser
 	suites: ["requirejs-dplugins/tests/unit/all"],
 
+	// Functional test suite(s) to run in each browser once non-functional tests are completed
+	functionalSuites: [ "requirejs-dplugins/tests/functional/all" ],
+
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|tests|node_modules)/
+	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|jquery\/|tests|node_modules)/
 });
