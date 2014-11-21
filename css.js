@@ -172,6 +172,7 @@ define([
 			 * and writes it to the modules layer.
 			 * @param {string} dest - Current css layer path.
 			 * @param {Array} loadList - List of css files contained in current css layer.
+			 * @returns {boolean} Return `true` if the function successfully writes the layer.
 			 */
 			writeLayer: function (writePluginFiles, dest, loadList) {
 				function tryRequire(paths) {
@@ -190,18 +191,19 @@ define([
 
 				var path = require.getNodePath(require.toUrl(module.id).replace(/[^\/]*$/, "node_modules/clean-css"));
 				var CleanCSS = tryRequire([path, "clean-css"]);
+				var fs = require.nodeRequire("fs");
+
+				loadList = loadList.map(require.toUrl)
+					.filter(function (path) {
+						if (!fs.existsSync(path)) {
+							console.log(">> Css file '" + path + "' was not found.");
+							return false;
+						}
+						return true;
+					});
 
 				if (CleanCSS) {
 					var result = "";
-					loadList = loadList.map(require.toUrl)
-						.filter(function (path) {
-							var fs = require.nodeRequire("fs");
-							if (!fs.existsSync(path)) {
-								console.log(">> Css file '" + path + "' was not found.");
-								return false;
-							}
-							return true;
-						});
 					loadList.forEach(function (src) {
 						result += new CleanCSS({
 							relativeTo: "./",
@@ -210,9 +212,14 @@ define([
 					});
 
 					writePluginFiles(dest, result);
+					return true;
 				} else {
 					console.log(">> Node module clean-css not found. Skipping CSS inlining. If you want CSS inlining" +
 						" run 'npm install clean-css' in your console.");
+					loadList.forEach(function (src) {
+						writePluginFiles(src, fs.readFileSync(src));
+					});
+					return false;
 				}
 			},
 
@@ -238,9 +245,9 @@ define([
 				var destMid = data.name.replace(/^(([^\/]*\/)*)[^\/]*$/, "$1css/layer.css");
 
 				// Write layer file
-				buildFunctions.writeLayer(writePluginFiles, dest, loadList);
-				// Write css config on the layer
-				buildFunctions.writeConfig(write, module.id, destMid, loadList);
+				var success = buildFunctions.writeLayer(writePluginFiles, dest, loadList);
+				// Write css config on the layer if the layer was successfully written.
+				success && buildFunctions.writeConfig(write, module.id, destMid, loadList);
 				// Reset loadList
 				loadList = [];
 			}
