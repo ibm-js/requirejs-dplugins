@@ -7,7 +7,7 @@
 		"grunt-contrib-jshint": "~0.6.0",
 		"grunt-jsbeautifier": "~0.2.2",
 		"requirejs": "~2.1.10",
-		"intern": "~1.6.2",
+		"intern": "2.1.x",
 		"grunt-lineending": "^0.2.2"
 	},
 	"licenses": [

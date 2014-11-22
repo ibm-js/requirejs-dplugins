@@ -14,18 +14,18 @@ module.exports = function (grunt) {
 		jshint: {
 			all: filesList,
 			options: {
-				jshintrc: ".jshintrc",
-			},
+				jshintrc: ".jshintrc"
+			}
 		},
 
 		lineending: {
 			all: {
 				options: {
-					eol: 'crlf',
+					eol: "crlf",
 					overwrite: true
 				},
 				files: {
-					'': filesList
+					"": filesList
 				}
 			}
 		},
@@ -46,14 +46,14 @@ module.exports = function (grunt) {
 				options: {
 					runType: "runner",
 					config: "tests/intern",
-					reporters: ["console"]
+					reporters: ["runner"]
 				}
 			},
 			local: {
 				options: {
-					runType: 'runner', // defaults to 'client'
-					config: 'tests/intern.local',
-					reporters: ['console', 'lcov']
+					runType: "runner", // defaults to "client"
+					config: "tests/intern.local",
+					reporters: ["runner"]
 				}
 			}
 		}
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks("grunt-lineending");
-	grunt.loadNpmTasks('intern');
+	grunt.loadNpmTasks("intern");
 
 
 	// By default, lint and run all tests.

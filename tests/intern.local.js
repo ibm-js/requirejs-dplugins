@@ -2,7 +2,11 @@
 define([
 	"./intern"
 ], function (intern) {
-	intern.useSauceConnect = false;
+	intern.tunnel = "NullTunnel";
+	intern.tunnelOptions = {
+		hostname: "localhost",
+		port: 4444
+	};
 
 	intern.environments = [{
 		browserName: "firefox"
