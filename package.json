@@ -13,5 +13,6 @@
 	"licenses": [{
 		"type": "BSD",
 		"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
-	}]
+	}],
+	"private": true
 }
