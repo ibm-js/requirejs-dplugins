@@ -47,10 +47,12 @@ define([], function () {
 			return resource;
 		},
 
-		load: function (resource, req, onLoad) {
+		load: function (resource, req, onLoad, config) {
 			/* global jQuery */
 			/* global $ */
-			if (typeof jQuery !== "undefined") {
+			if (config.isBuild) {
+				onLoad();
+			} else if (typeof jQuery !== "undefined") {
 				onLoad(jQuery);
 			} else if (typeof $ !== "undefined") {
 				onLoad($);
