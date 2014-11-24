@@ -1,6 +1,6 @@
 {
 	"name": "requirejs-dplugins",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "AMD plugins for RequireJS",
 	"devDependencies": {
 		"grunt": "~0.4.1",
@@ -10,9 +10,11 @@
 		"intern": "~1.6.2",
 		"grunt-lineending": "^0.2.2"
 	},
-	"licenses": [{
-		"type": "BSD",
-		"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
-	}],
+	"licenses": [
+		{
+			"type": "BSD",
+			"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
+		}
+	],
 	"private": true
 }
