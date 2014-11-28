@@ -56,10 +56,19 @@ module.exports = function (grunt) {
 					reporters: ["runner"]
 				}
 			}
+		},
+
+		clean: {
+			// Delete files created by the "testBuild" target.
+			testBuild: [
+				"tests/functional/jqueryApp/{bower_components,node_modules,build,tmp}",
+				"tests/jquery.js"	// work around grunt-amd-build bug where it puts files outside of tmp/ dir
+			]
 		}
 	});
 
 	// These plugins provide necessary tasks.
+	grunt.loadNpmTasks("grunt-contrib-clean");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks("grunt-lineending");
@@ -149,8 +158,14 @@ module.exports = function (grunt) {
 			addReporter("console");
 		}
 
+		// First create the test builds.  These are referenced from the intern tests.
 		grunt.task.run("testBuild");
+
+		// Then run the intern tests.
 		grunt.task.run("intern:" + target);
+
+		// Finally, delete the test builds so that they don't show up in "git status" as "untracked files".
+		grunt.task.run("clean:testBuild");
 	});
 
 };
