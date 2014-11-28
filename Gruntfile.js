@@ -84,10 +84,10 @@ module.exports = function (grunt) {
 	// Travis build
 	grunt.registerTask("travis", ["jshint", "intern:remote"]);
 
-	grunt.registerTask("testBuild", "Run the builds used by the functional tests", function (target) {
+	grunt.registerTask("testBuild", "Run the builds used by the functional tests", function () {
 		var done = this.async();
 
-		var appRootDir = "tests/functional/jqueryApp"
+		var appRootDir = "tests/functional/jqueryApp";
 
 		function npmInstall(error, bowerResults) {
 			if (error !== null) {
