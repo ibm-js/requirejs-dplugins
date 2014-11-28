@@ -14,18 +14,18 @@ module.exports = function (grunt) {
 		jshint: {
 			all: filesList,
 			options: {
-				jshintrc: ".jshintrc",
-			},
+				jshintrc: ".jshintrc"
+			}
 		},
 
 		lineending: {
 			all: {
 				options: {
-					eol: 'crlf',
+					eol: "crlf",
 					overwrite: true
 				},
 				files: {
-					'': filesList
+					"": filesList
 				}
 			}
 		},
@@ -46,24 +46,33 @@ module.exports = function (grunt) {
 				options: {
 					runType: "runner",
 					config: "tests/intern",
-					reporters: ["console"]
+					reporters: ["runner"]
 				}
 			},
 			local: {
 				options: {
-					runType: 'runner', // defaults to 'client'
-					config: 'tests/intern.local',
-					reporters: ['console', 'lcov']
+					runType: "runner", // defaults to "client"
+					config: "tests/intern.local",
+					reporters: ["runner"]
 				}
 			}
+		},
+
+		clean: {
+			// Delete files created by the "testBuild" target.
+			testBuild: [
+				"tests/functional/jqueryApp/{bower_components,node_modules,build,tmp}",
+				"tests/jquery.js"	// work around grunt-amd-build bug where it puts files outside of tmp/ dir
+			]
 		}
 	});
 
 	// These plugins provide necessary tasks.
+	grunt.loadNpmTasks("grunt-contrib-clean");
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks("grunt-lineending");
-	grunt.loadNpmTasks('intern');
+	grunt.loadNpmTasks("intern");
 
 
 	// By default, lint and run all tests.
@@ -74,5 +83,89 @@ module.exports = function (grunt) {
 
 	// Travis build
 	grunt.registerTask("travis", ["jshint", "intern:remote"]);
+
+	grunt.registerTask("testBuild", "Run the builds used by the functional tests", function (target) {
+		var done = this.async();
+
+		var appRootDir = "tests/functional/jqueryApp"
+
+		function npmInstall(error, bowerResults) {
+			if (error !== null) {
+				grunt.log.writeln(bowerResults.stdout);
+				done(error);
+				return;
+			}
+			grunt.util.spawn({
+				cmd: "npm",
+				args: ["install"],
+				opts: {
+					cwd: appRootDir
+				}
+			}, startBuild);
+		}
+
+		function startBuild(error, npmResults) {
+			if (error !== null) {
+				grunt.log.writeln(npmResults.stdout);
+				done(error);
+				return;
+			}
+			grunt.util.spawn({
+				cmd: "grunt",
+				args: ["build"],
+				opts: {
+					cwd: appRootDir
+				}
+			}, done.bind(null, true));
+		}
+
+		grunt.util.spawn({
+			cmd: "bower",
+			args: ["install"],
+			opts: {
+				cwd: appRootDir
+			}
+		}, npmInstall);
+	});
+
+	// Testing.
+	// Always specify the target e.g. grunt test:remote, grunt test:remote
+	// then add on any other flags afterwards e.g. console, lcovhtml.
+	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
+		"Always specify the test target e.g. \n" +
+		"grunt test:local\n" +
+		"grunt test:remote\n\n" +
+		"Add any optional reporters via a flag e.g. \n" +
+		"grunt test:local:console\n" +
+		"grunt test:local:lcovhtml\n" +
+		"grunt test:local:console:lcovhtml";
+	grunt.registerTask("test", testTaskDescription, function (target) {
+		function addReporter(reporter) {
+			var property = "intern." + target + ".options.reporters",
+				value = grunt.config.get(property);
+			if (value.indexOf(reporter) !== -1) {
+				return;
+			}
+			value.push(reporter);
+			grunt.config.set(property, value);
+		}
+
+		if (this.flags.lcovhtml) {
+			addReporter("lcovhtml");
+		}
+
+		if (this.flags.console) {
+			addReporter("console");
+		}
+
+		// First create the test builds.  These are referenced from the intern tests.
+		grunt.task.run("testBuild");
+
+		// Then run the intern tests.
+		grunt.task.run("intern:" + target);
+
+		// Finally, delete the test builds so that they don't show up in "git status" as "untracked files".
+		grunt.task.run("clean:testBuild");
+	});
 
 };

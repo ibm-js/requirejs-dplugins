@@ -14,10 +14,10 @@ define([
 		context = getNewContext();
 		require.config({
 			context: context,
-			baseUrl: "../../../requirejs-dplugins",
+			baseUrl: "../../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
 			packages: [{
 				name: "myapp",
-				location: "tests/resources/app/dist/myapp"
+				location: "tests/unit/resources/app/dist/myapp"
 			}],
 			config: {
 				i18n: {
@@ -25,14 +25,14 @@ define([
 					enhanceLayer: options[1],
 					languagePack: options[2]
 				}
-			},
+			}
 		});
 	}
 
 	function execTest(locale, testFunc) {
 		var contextRequire = require.config({
 			context: context,
-			locale: locale,
+			locale: locale
 		});
 
 		contextRequire(["myapp/test"], function (test) {

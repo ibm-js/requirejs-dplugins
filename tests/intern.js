@@ -6,8 +6,6 @@ define({
 	// The port on which the instrumenting proxy will listen
 	proxyPort: 9000,
 
-	proxyUrl: "http://127.0.0.1:9000/",
-
 	// Browsers to run integration testing against. Note that version numbers must be strings if used with Sauce
 	// OnDemand. Options that will be permutated are browserName, version, platform, and platformVersion; any other
 	// capabilities options specified for an environment will be copied as-is
@@ -74,15 +72,7 @@ define({
 	maxConcurrency: 3,
 
 	// Whether or not to start Sauce Connect before running tests
-	useSauceConnect: true,
-
-	// Connection information for the remote WebDriver service. If using Sauce Labs, keep your username and password
-	// in the SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables unless you are sure you will NEVER be
-	// publishing this configuration file somewhere
-	webdriver: {
-		host: "localhost",
-		port: 4444
-	},
+	tunnel: "SauceLabsTunnel",
 
 	loader: {
 		baseUrl: typeof window !== "undefined" ? "../../.." : ".."
@@ -92,9 +82,21 @@ define({
 		"host-browser": "../../../requirejs/require.js"
 	},
 
+	// Maximum duration of a test, in milliseconds
+	TEST_TIMEOUT: 300000, // 5 minutes
+
+	// Maximum time to wait for something (pollUntil, etc...)
+	WAIT_TIMEOUT: 180000, // 3 minutes
+
+	// Interval between two polling requests, in milliseconds (for pollUntil)
+	POLL_INTERVAL: 500, // 0.5 seconds
+
 	// Non-functional test suite(s) to run in each browser
-	suites: ["requirejs-dplugins/tests/all"],
+	suites: ["requirejs-dplugins/tests/unit/all"],
+
+	// Functional test suite(s) to run in each browser once non-functional tests are completed
+	functionalSuites: [ "requirejs-dplugins/tests/functional/all" ],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|tests|node_modules)/
+	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|jquery\/|tests|node_modules)/
 });
