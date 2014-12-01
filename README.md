@@ -2,6 +2,7 @@
 
 Set of AMD plugins for RequireJS. It contains the following plugins:
 
+ * [css](#css)
  * [has](#has)
  * [i18n](#i18n)
  * [jquery](#jquery)
@@ -41,8 +42,15 @@ Then install dependencies with bower (or manually from github if you prefer to):
 	$ bower install
 
 
+## css
+This plugin will load and wait for a css file. CSS loaded with this plugin can be overwritten by
+user-defined style sheet, using `<link>` or `<style>` tag.
+
+See [docs/css.md](./docs/css.md) for documentation.
+
 ## has
-This plugin provides an extensible API to manage feature detection.
+This plugin provides an extensible API to manage feature detection. It also implements the
+[requirejs plugin api](http://requirejs.org/docs/plugins.html) to provide conditional module loading.
 
 See [docs/has.md](./docs/has.md) and [samples/has.html](./samples/has.html) for documentation and sample.
 
@@ -60,10 +68,3 @@ See [docs/jquery.md](./docs/jquery.md) for documentation.
 This plugin allows to require modules that may or may not exist.
 
 See [docs/maybe.md](./docs/maybe.md) and [samples/maybe.html](./samples/maybe.html) for documentation and sample.
-
-
-
-## Credits
-
-* Clément Mathieu (IBM CCLA)
-
