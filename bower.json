@@ -3,11 +3,10 @@
 	"version": "0.4.0",
 	"description": "AMD plugins for RequireJS",
 	"dependencies": {
-		"dojo": ">=1.9.1",
+		"jquery": ">=2.1",
 		"requirejs": "2.1.x"
 	},
 	"devDependencies": {
-		"jquery": ">=2.1"
 	},
 	"keywords": [
 		"requirejs",
