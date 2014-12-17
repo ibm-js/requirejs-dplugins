@@ -14,7 +14,7 @@ define([
 		context = getNewContext();
 		require.config({
 			context: context,
-			baseUrl: "../../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
+			baseUrl: "../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
 			packages: [{
 				name: "myapp",
 				location: "tests/unit/resources/app/dist/myapp"

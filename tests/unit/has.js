@@ -9,7 +9,7 @@ define([
 		setup: function () {
 			moduleRequire = require.config({
 				context: "module",
-				baseUrl: "../../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
+				baseUrl: "../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
 				config: {
 					has: {
 						"config-feature": true,
