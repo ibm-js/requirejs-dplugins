@@ -30,9 +30,9 @@
 
 define([
 	"./has",
-	"dojo/Deferred",
+	"./jquery!deferred",
 	"module"
-], function (has, Deferred, module) {
+], function (has, $, module) {
 	"use strict";
 
 	has.add("event-link-onload-api", function (global) {
@@ -45,10 +45,11 @@ define([
 	/**
 	 * Return a promise that resolves when the specified link has finished loading.
 	 * @param {HTMLLinkElement} link - The link element to be notified for.
-	 * @returns {module:dojo/promise/Promise} - A promise.
+	 * @returns {module:jQuery/Promise} - A promise.
+	 * @private
 	 */
 	var listenOnLoad = function (link) {
-		var def = new Deferred(),
+		var def = new $.Deferred(),
 			loadHandler = has("event-link-onload-api") ?
 				function () {
 					// We're using "readystatechange" because IE happily support both
@@ -71,7 +72,7 @@ define([
 				};
 
 		loadHandler();
-		return def.promise;
+		return def.promise();
 	};
 
 	var loadCss = {
