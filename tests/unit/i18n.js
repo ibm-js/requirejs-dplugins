@@ -14,7 +14,11 @@ define([
 		context = getNewContext();
 		require.config({
 			context: context,
-			baseUrl: "../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
+			//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
+			//		to be able to access requirejs-dplugins sibling directories.
+			//		The last /requirejs-dplugins is here to allow to use i18n! directly instead of
+			//		requirejs-dplugins/i18n!
+			baseUrl: "../../../requirejs-dplugins",
 			packages: [{
 				name: "myapp",
 				location: "tests/unit/resources/app/dist/myapp"

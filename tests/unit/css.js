@@ -3,14 +3,14 @@ define([
 	"intern/chai!assert"
 ], function (registerSuite, assert) {
 
-	// Note that as this test is running, other unrelated styles are likely being loaded
-	// from other test suites that load widgets that use theme!.  Make test resilient to this.
-	//for(var i = 0; i < 100000000; i++){var test = "toto"+i;}
-
 	var container;
 
 	var cssRequire = require.config({
 		context: "css",
+		//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
+		//		to be able to access requirejs-dplugins sibling directories.
+		//		The last /requirejs-dplugins is here to allow to use css! directly instead of
+		//		requirejs-dplugins/css!
 		baseUrl: "../../../requirejs-dplugins",
 		paths: {dojo: "../dojo"}
 	});

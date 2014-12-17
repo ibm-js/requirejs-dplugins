@@ -9,7 +9,10 @@ define([
 		setup: function () {
 			moduleRequire = require.config({
 				context: "module",
-				baseUrl: "../../../requirejs-dplugins",	// note: "../../.." make "grunt intern:remote" fail
+				//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/
+				//		and the extra ../requirejs-dplugins is necessary to access requirejs-dplugins
+				//		sibling directories.
+				baseUrl: "../../../requirejs-dplugins",
 				config: {
 					has: {
 						"config-feature": true,
@@ -99,6 +102,10 @@ define([
 		setup: function () {
 			pluginRequire = require.config({
 				context: "plugin",
+				//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
+				//		to be able to access requirejs-dplugins sibling directories.
+				//		The last /requirejs-dplugins is here to allow to use has! directly instead of
+				//		requirejs-dplugins/has!
 				baseUrl: "../../../requirejs-dplugins",
 				packages: [{
 					name: "modules",

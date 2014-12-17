@@ -1,4 +1,3 @@
-/* global context:true, onlyLayer:true */
 define([
 	"intern!object",
 	"intern/chai!assert"
@@ -6,6 +5,8 @@ define([
 	var index = 0;
 	function getContextRequire() {
 		return require.config({
+			//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
+			//		to be able to access requirejs-dplugins sibling directories.
 			baseUrl: "../../..",
 			context: "jquery" + index++
 		});
