@@ -19,18 +19,11 @@ No official release yet.
 This project is distributed by the Dojo Foundation and licensed under the ["New" BSD License](./LICENSE).
 All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/about/claForm).
 
-## Dependencies
-
-This project requires the following other project to run:
-
- * requirejs
-
 ## Installation
 
 _Bower_ release installation:
 
     $ bower install requirejs-dplugins
-    $ bower install jquery (if you are using the jquery plugin)
 
 _Manual_ master installation:
 
