@@ -11,8 +11,7 @@ library via a `<script>` tag, in which case it just returns a pointer to the alr
 
 It's useful to avoid loading jQuery twice.
 
-When using this plugin, you can use the provided jquery (installed as a `requirejs-dplugins` bower dependency)
-or use your own version, either via `bower install jquery` or via
+When using this plugin, you must manually include jquery into your app via `bower install jquery` or via
 a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`).
 
 ## Example

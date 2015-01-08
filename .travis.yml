@@ -5,6 +5,7 @@ before_script:
 - npm install -g bower
 - npm install
 - bower install
+- bower install jquery
 script:
 - grunt travis
 env:

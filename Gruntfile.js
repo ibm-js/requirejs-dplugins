@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 			// Delete files created by the "testBuild" target.
 			testBuild: [
 				"tests/functional/jqueryApp/{bower_components,node_modules,build,tmp}",
-				"tests/jquery.js"	// work around grunt-amd-build bug where it puts files outside of tmp/ dir
+				"tests/jquery.js" // work around grunt-amd-build bug where it puts files outside of tmp/ dir
 			]
 		}
 	});
@@ -76,7 +76,7 @@ module.exports = function (grunt) {
 
 
 	// By default, lint and run all tests.
-	grunt.registerTask("default", ["jsbeautifier", "lineending", "jshint", "intern:remote"]);
+	grunt.registerTask("default", ["jsbeautifier", "lineending", "jshint", "test:remote"]);
 
 	// Just lint
 	grunt.registerTask("lint", ["jsbeautifier", "lineending", "jshint"]);
@@ -116,7 +116,16 @@ module.exports = function (grunt) {
 				opts: {
 					cwd: appRootDir
 				}
-			}, done.bind(null, true));
+			}, finish);
+		}
+
+		function finish(error, buildResults) {
+			if (error !== null) {
+				grunt.log.writeln(buildResults.stdout);
+				done(error);
+				return;
+			}
+			done(true);
 		}
 
 		grunt.util.spawn({
@@ -158,7 +167,7 @@ module.exports = function (grunt) {
 			addReporter("console");
 		}
 
-		// First create the test builds.  These are referenced from the intern tests.
+		// First create the test builds. These are referenced from the intern tests.
 		grunt.task.run("testBuild");
 
 		// Then run the intern tests.
