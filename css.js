@@ -204,19 +204,21 @@ define([
 					});
 
 				if (CleanCSS) {
-					var result = "";
+					var layer = "";
 					loadList.forEach(function (src) {
-						result += new CleanCSS({
+						var result = new CleanCSS({
 							relativeTo: "./",
 							target: dest
 						}).minify("@import url(" + src + ");");
+						// Support clean-css version 2.x and 3.x
+						layer += result.styles || result;
 					});
 
-					writePluginFiles(dest, result);
+					writePluginFiles(dest, layer);
 					return true;
 				} else {
-					console.log(">> Node module clean-css not found. Skipping CSS inlining. If you want CSS inlining" +
-						" run 'npm install clean-css' in your console.");
+					console.log(">> WARNING: Node module clean-css not found. Skipping CSS inlining. If you" +
+						" want CSS inlining run 'npm install clean-css' in your console.");
 					loadList.forEach(function (src) {
 						writePluginFiles(src, fs.readFileSync(src));
 					});
