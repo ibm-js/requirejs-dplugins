@@ -31,15 +31,12 @@ define({
 			version: "33",
 			platform: "Windows 7",
 			name: "requirejs-dplugins"
+		}, {
+			browserName: "safari",
+			version: "7",
+			platform: "OS X 10.9",
+			name: "requirejs-dplugins"
 		}
-		
-		// Disabled because environments are often unavailable on sauce and randomly break the build.
-		// {
-			// browserName: "safari",
-			// version: "7",
-			// platform: "OS X 10.9",
-			// name: "requirejs-dplugins"
-		// }
 
 		// Mobile
 		// Disabled because environments are often unavailable on sauce and randomly break the build.
@@ -95,8 +92,8 @@ define({
 	suites: ["requirejs-dplugins/tests/unit/all"],
 
 	// Functional test suite(s) to run in each browser once non-functional tests are completed
-	functionalSuites: [ "requirejs-dplugins/tests/functional/all" ],
+	functionalSuites: ["requirejs-dplugins/tests/functional/all"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /(?:requirejs(\/|\\)|dojo|jquery\/|tests|node_modules)/
+	excludeInstrumentation: /(?:requirejs|jquery|tests|node_modules)(?:\/|\\)/
 });

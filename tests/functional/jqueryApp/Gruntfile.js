@@ -11,12 +11,6 @@ module.exports = function (grunt) {
 	var outdir = "./build/";
 	var tmpdir = "./tmp/";
 
-	var common = {
-		options: { banner: "<%= " + outprop + ".header%>" },
-		src: "<%= " + outprop + ".modules.abs %>",
-		dest: outdir + "<%= " + outprop + ".layerPath %>"
-	};
-
 	grunt.initConfig({
 		amdloader: {
 			baseUrl: ".",
