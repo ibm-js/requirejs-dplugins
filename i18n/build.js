@@ -1,4 +1,4 @@
-define(["./common", "require"], function (common, requirejs) {
+define(["./common"], function (common) {
 	var bundlesList = [],
 		localesList,
 		layerMid,
@@ -24,7 +24,7 @@ define(["./common", "require"], function (common, requirejs) {
 		getAllAvailableLocales = function () {
 			localesList = [];
 			bundlesList.forEach(function (name) {
-				var root = requirejs(getMasterMid(name));
+				var root = require(getMasterMid(name));
 
 				eachProp(root, function (loc) {
 					if (root[loc] && localesList.indexOf(loc) < 0) {
@@ -37,7 +37,7 @@ define(["./common", "require"], function (common, requirejs) {
 
 		normalizeRoot = function (bundle, name) {
 			bundle.root = (bundle.root === true || bundle.root === 1) ?
-				requirejs(name.prefix + "root/" + name.suffix) : bundle.root;
+				require(name.prefix + "root/" + name.suffix) : bundle.root;
 			return bundle;
 		},
 
@@ -60,13 +60,13 @@ define(["./common", "require"], function (common, requirejs) {
 				localizedBundle;
 
 			if (arguments.length === 2) {
-				root = normalizeRoot(requirejs(getMasterMid(name)), name);
+				root = normalizeRoot(require(getMasterMid(name)), name);
 			}
 
 			if (loc !== "root") {
 				while (loc && loc !== "root") {
 					if (root[loc]) {
-						localizedBundle = requirejs(name.prefix + loc + "/" + name.suffix);
+						localizedBundle = require(name.prefix + loc + "/" + name.suffix);
 						mixin(result, localizedBundle);
 					}
 					loc = common.getParentLocale(loc);
@@ -102,7 +102,7 @@ define(["./common", "require"], function (common, requirejs) {
 			var layersContent = {};
 
 			bundlesList.forEach(function (name) {
-				var root = normalizeRoot(requirejs(getMasterMid(name)), name),
+				var root = normalizeRoot(require(getMasterMid(name)), name),
 					pseudoRoots = getPseudoRoots(root);
 
 				localesList.forEach(function (loc) {
