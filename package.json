@@ -11,9 +11,11 @@
 		"intern": "2.1.x",
 		"grunt-lineending": "^0.2.2"
 	},
-	"licenses": [{
-		"type": "BSD",
-		"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
-	}],
+	"licenses": [
+		{
+			"type": "BSD",
+			"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
+		}
+	],
 	"private": true
 }

@@ -24,7 +24,6 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 _Bower_ release installation:
 
     $ bower install requirejs-dplugins
-    $ bower install jquery (if you are using the jquery plugin)
 
 _Manual_ master installation:
 

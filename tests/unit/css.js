@@ -12,7 +12,7 @@ define([
 		//		The last /requirejs-dplugins is here to allow to use css! directly instead of
 		//		requirejs-dplugins/css!
 		baseUrl: "../../../requirejs-dplugins",
-		paths: {lie: "../lie"}
+		paths: {dojo: "../dojo"}
 	});
 
 	function getStyles() {

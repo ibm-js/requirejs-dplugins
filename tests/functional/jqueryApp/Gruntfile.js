@@ -11,13 +11,18 @@ module.exports = function (grunt) {
 	var outdir = "./build/";
 	var tmpdir = "./tmp/";
 
+	var common = {
+		options: { banner: "<%= " + outprop + ".header%>" },
+		src: "<%= " + outprop + ".modules.abs %>",
+		dest: outdir + "<%= " + outprop + ".layerPath %>"
+	};
+
 	grunt.initConfig({
 		amdloader: {
 			baseUrl: ".",
 
 			paths: {
 				jquery: "bower_components/jquery",
-				lie: "bower_components/lie",
 				"requirejs-dplugins": "../../.."
 			},
 

@@ -30,9 +30,9 @@
 
 define([
 	"./has",
-	"lie/dist/lie",
+	"./jquery!deferred",
 	"module"
-], function (has, Promise, module) {
+], function (has, $, module) {
 	"use strict";
 
 	has.add("event-link-onload-api", function (global) {
@@ -49,30 +49,30 @@ define([
 	 * @private
 	 */
 	var listenOnLoad = function (link) {
-		var loadHandler = has("event-link-onload-api") ?
-			function (resolve) {
-				// We're using "readystatechange" because IE happily support both
-				link.onreadystatechange = link.onload = function () {
-					if (!link.readyState || link.readyState === "complete") {
-						link.onreadystatechange = link.onload = null;
-						resolve();
+		var def = new $.Deferred(),
+			loadHandler = has("event-link-onload-api") ?
+				function () {
+					// We're using "readystatechange" because IE happily support both
+					link.onreadystatechange = link.onload = function () {
+						if (!link.readyState || link.readyState === "complete") {
+							link.onreadystatechange = link.onload = null;
+							def.resolve();
+						}
+					};
+				} :
+				function () {
+					// watches a stylesheet for loading signs.
+					var sheet = link.sheet || link.styleSheet,
+						styleSheets = document.styleSheets;
+					if (sheet && Array.prototype.lastIndexOf.call(styleSheets, sheet) !== -1) {
+						def.resolve();
+					} else {
+						setTimeout(loadHandler, 25);
 					}
 				};
-			} :
-			function (resolve) {
-				// watches a stylesheet for loading signs.
-				var sheet = link.sheet || link.styleSheet,
-					styleSheets = document.styleSheets;
-				if (sheet && Array.prototype.lastIndexOf.call(styleSheets, sheet) !== -1) {
-					resolve();
-				} else {
-					setTimeout(loadHandler, 25, resolve);
-				}
-			};
 
-		return new Promise(function (resolve) {
-			loadHandler(resolve);
-		});
+		loadHandler();
+		return def.promise();
 	};
 
 	var loadCss = {

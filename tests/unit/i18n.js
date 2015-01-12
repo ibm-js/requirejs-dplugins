@@ -71,7 +71,7 @@ define([
 				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
 			}));
 		},
-		"fr-fr (404 fr-fr expected)": function () {
+		"fr-fr": function () {
 			var dfd = this.async();
 			var hint = "The text should come from the best layer (ie. fr)";
 
@@ -89,7 +89,7 @@ define([
 				assert.strictEqual(test.bundleB, "En from Layer Bundle B", hint);
 			}));
 		},
-		"it (404 it expected)": function () {
+		"it": function () {
 			var dfd = this.async();
 			var hint = "The root layer should be used when a locale does not exist";
 
@@ -262,7 +262,7 @@ define([
 				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
 			}));
 		},
-		"fr-fr (404 fr-fr expected)": function () {
+		"fr-fr": function () {
 			var dfd = this.async();
 			var hintLayer = "The layer should not be enhanced";
 			var hintBundle = "The best match should be found";
@@ -309,7 +309,7 @@ define([
 				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
 			}));
 		},
-		"fr-fr (404 fr-fr expected)": function () {
+		"fr-fr": function () {
 			var dfd = this.async();
 			var hintLayer = "The layer should be enhanced";
 			var hintBundle = "The best match should be found";
