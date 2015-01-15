@@ -32,7 +32,7 @@ define([
 		setup: function () {
 			// For testing that css! loaded styles don't override user-defined styles
 			document.head.insertAdjacentHTML("beforeend",
-				"<style>.userDefined { border: 4px solid black; }</style>");
+				"<style>.userDefined { border: 1px dashed black; }</style>");
 
 			assert.strictEqual(getStyles().match(/userDefined/g).length, 1, "userDefined CSS inserted");
 
@@ -61,7 +61,7 @@ define([
 				assert(backgroundImage, "stylesheet loaded");
 
 				// Test that <style> nodes defined by app override the style that was loaded by css!
-				assert.strictEqual(getComputedStyle(window.userDefined).borderLeftWidth, "4px",
+				assert.strictEqual(getComputedStyle(window.userDefined).borderLeftStyle, "dashed",
 						"user defined style wins: " + getStyles());
 			}));
 
