@@ -17,6 +17,7 @@ module.exports = function (grunt) {
 
 			paths: {
 				jquery: "bower_components/jquery",
+				lie: "bower_components/lie",
 				"requirejs-dplugins": "../../.."
 			},
 

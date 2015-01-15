@@ -33,7 +33,7 @@ Then install dependencies with bower (or manually from github if you prefer to):
 
 	$ cd requirejs-dplugins
 	$ bower install
-
+	$ bower install jquery (if you are using the jquery plugin)
 
 ## css
 This plugin will load and wait for a css file. CSS loaded with this plugin can be overwritten by
