@@ -6,8 +6,8 @@ title: requirejs-dplugins
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12 col-md-8">
-				<h2>Title</h2>
-				<p>Summary</p>
+				<h2>Custom AMD loading with requirejs-dplugins</h2>
+				<p>Requirejs-dplugins is providing you various AMD plugins to load CSS files, i18n bundles, and more.</p>
 				<p>
 					<!--<a href="getting-started.html" class="btn btn-primary btn-lg" role="button">Get started</a>-->
 					<a href="docs/master/index.html" class="btn btn-success btn-lg" role="button">Learn more &raquo;</a>
@@ -22,11 +22,72 @@ title: requirejs-dplugins
 
 <p></p>
 
-<h3>Title</h3>
+<!--<h3></h3>-->
 
 <div class="page-header">
-	<h2>Header</h2>
+	<h2>Installation</h2>
 </div>
-<p>
-	Content
-</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-md-6">
+			The easiest way to get requirejs-dplugins is to use <a href="http://bower.io">Bower</a> to install
+			the latest release.
+		</div>
+		<div class="col-xs-12 col-md-6">
+			{% highlight bash %}
+			$ bower install requirejs-dplugins
+			{% endhighlight %}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			Alternatively you can manually download a release from
+			<a href="https://github.com/ibm-js/requirejs-dplugins/releases">requirejs-dplugins Github page</a>.
+		</div>
+	</div>
+</div>
+
+<div class="page-header">
+	<h2>List of plugins</h2>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<dl>
+				<dt><a href="docs/master/css.html">css</a></dt>
+				<dd>Load and wait for a css file. CSS loaded with this plugin can be overwritten by user-defined
+					style sheet, using &lt;link&gt; or &lt;style&gt; tag.</dd>
+			</dl>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<dl>
+				<dt><a href="docs/master/i18n.html">i18n</a></dt>
+				<dd>Provides an API to handle string translation and create bundles for the most frequent locales.
+				</dd>
+			</dl>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<dl>
+				<dt><a href="docs/master/has.html">has</a></dt>
+				<dd>Provides conditional module loading and an extensible API to manage feature detection.
+				</dd>
+			</dl>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<dl>
+				<dt><a href="docs/master/jquery.html">jquery</a></dt>
+				<dd>Loads jQuery modules from AMD source code or from jQuery globals if available.
+				</dd>
+			</dl>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-6 col-md-3">
+			<dl>
+				<dt><a href="docs/master/maybe.html">maybe</a></dt>
+				<dd>Require a module and return undefined if the module was not found.
+				</dd>
+			</dl>
+		</div>
+	</div>
+</div>
