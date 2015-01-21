@@ -18,6 +18,7 @@ Note: This plugin does NOT include any feature tests.
 [Use as module](#use-as-module)  
 [Use as plugin](#use-as-plugin)  
 
+<a name="features"></a>
 ## Features
 
 * __lazy evaluation__: Tests are only evaluated when they are required by the application.
@@ -26,6 +27,7 @@ Note: This plugin does NOT include any feature tests.
 flag.
 * __requirejs plugin__: Use ternary operator to conditionally load modules.
 
+<a name="adding-tests"></a>  
 ## Adding tests
 
 Since the plugin itself does not include any tests, the first thing to do is add one.
@@ -73,6 +75,7 @@ require.config({
 });
 ```
 
+<a name="use-as-module"></a>  
 ## Use as module
 To access the tests, the plugin exports a main function taking a test name as argument and returning the test result.
 
@@ -85,6 +88,7 @@ define(["requirejs-dplugins/has"], function (has) {
 });
 ```
 
+<a name="use-as-plugin"></a>
 ## Use as plugin
 Ternary operator can be used to conditionally load modules. It uses the following syntax:
 

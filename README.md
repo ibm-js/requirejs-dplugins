@@ -48,7 +48,7 @@ This plugin provides an extensible API to manage feature detection. It also impl
 See [docs/has.md](./docs/has.md) and [samples/has.html](./samples/has.html) for documentation and sample.
 
 ## i18n
-This plugin provides provides an API to handle string translation.
+This plugin provides an API to handle string translation.
 
 See [docs/i18n.md](./docs/i18n.md) and [samples/i18n.html](./samples/i18n.html) for documentation and sample.
 
