@@ -1,7 +1,7 @@
 ---
-layout: doc
+layout: docMain
 ---
-Requirejs-dplugins provides a set of AMD plugins compatible with requirejs.
+Requirejs-dplugins provides a set of AMD plugins compatible with requirejs and grunt-amd-build.
 
 ## Plugins
 
