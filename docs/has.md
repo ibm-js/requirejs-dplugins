@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: doc
 title: requirejs-dplugins/has
 ---
 
@@ -10,13 +10,14 @@ title: requirejs-dplugins/has
 
 It is based on the conventions in the [has.js project](https://github.com/phiggins42/has.js).
 
-Note: This plugin does NOT include any feature tests.
+__Note:__ This plugin does NOT include any feature tests.
 
 ##### Table of Contents
 [Features](#features)  
 [Adding tests](#adding-tests)  
 [Use as module](#use-as-module)  
 [Use as plugin](#use-as-plugin)  
+[Build](#build)  
 
 <a name="features"></a>
 ## Features
@@ -58,6 +59,7 @@ define(["requirejs-dplugins/has"], function (has) {
 });
 ```
 
+<a name="using-static-configuration"></a>
 ### Using static configuration
 
 The plugin will look for static configuration in a hashmap provided through
@@ -101,9 +103,11 @@ Note that `moduleA` and `moduleB` are optional and if the expression doesn't res
 `undefined`.
 
 Ternary operation can be chained to run another test if the first one fails.
+
 ```
 test1?moduleA:test2?moduleB:moduleC
 ```
+
 If `test1` is true, the plugin loads `moduleA`.
 If `test1` is false but `test2` is true, the plugin loads `moduleB`.
 If `test1` is false and `test2` is false, the plugin loads `moduleC`.
@@ -114,3 +118,11 @@ define(["requirejs-dplugins/has!bidi?./bidiWidget:./Widget"], function (widget) 
 	// Do something with the widget
 });
 ```
+
+<a name="build"></a>
+## Build
+
+Has flag can be specified at build time using the [static configuration](#using-static-configuration).
+If a flag is `undefined` at build time, then all the possible modules will be added to the layer.
+If a flag was set to `true` or `false`, the build will resolve the ternary condition and include only the
+needed modules in the layer.
