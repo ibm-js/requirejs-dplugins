@@ -1,8 +1,9 @@
 /**
  * Promise plugin.
  *
- * This plugin will return an ES6 compliant Promise implementation. This implementation come from the browser
- * if one is available or from the lie package.
+ * This plugin returns an ES6 compliant Promise implementation. It returns the implementation from the
+ * browser if there is one. If the browser does not support Promise, this plugin returns the lie.js
+ * Promise shim.
  *
  * @example:
  *      To create a promise:
@@ -17,18 +18,20 @@
  * @module requirejs-dplugins/Promise
  */
 /* global Promise */
-define({
-	load: function (name, req, onload, config) {
-		config = config || {};
-		if (config.isBuild) {
-			onload();
-		} else if (typeof Promise === "function") {
-			onload(Promise);
-		} else {
-			// use global require to allow map configuration.
-			require(["lie/dist/lie"], function (lie) {
-				onload(lie);
-			});
+define(["require"], function (require) {
+	return {
+		load: function (name, req, onload, config) {
+			config = config || {};
+			if (config.isBuild) {
+				onload();
+			} else if (typeof Promise === "function") {
+				onload(Promise);
+			} else {
+				// use global require to allow map configuration.
+				require(["lie/dist/lie"], function (lie) {
+					onload(lie);
+				});
+			}
 		}
-	}
+	};
 });
