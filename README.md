@@ -7,6 +7,7 @@ Set of AMD plugins for RequireJS. It contains the following plugins:
  * [i18n](#i18n)
  * [jquery](#jquery)
  * [maybe](#maybe)
+ * [Promise](#promise)
 
 ## Status
 
@@ -61,3 +62,9 @@ See [docs/jquery.md](./docs/jquery.md) for documentation.
 This plugin allows to require modules that may or may not exist.
 
 See [docs/maybe.md](./docs/maybe.md) and [samples/maybe.html](./samples/maybe.html) for documentation and sample.
+
+## Promise
+This plugin provides an ES6 Promise implementation. If the browser does not provide ES6 Promise, it provides a shim.
+
+See [docs/Promise.md](./docs/Promose.md) for documentation.
+
