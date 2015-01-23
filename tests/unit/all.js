@@ -3,5 +3,6 @@ define([
 	"./css",
 	"./has",
 	"./i18n",
+	"./Promise",
 	"./jquery"
 ]);
