@@ -30,7 +30,7 @@
 
 define([
 	"./has",
-	"lie/dist/lie",
+	"./Promise!",
 	"module"
 ], function (has, Promise, module) {
 	"use strict";

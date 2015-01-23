@@ -33,7 +33,9 @@ Then install dependencies with bower (or manually from github if you prefer to):
 
 	$ cd requirejs-dplugins
 	$ bower install
-	$ bower install jquery (if you are using the jquery plugin)
+
+Of course, to use the jQuery plugin you will need to install jquery in your app via `bower install jquery` or
+via a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`). 
 
 ## css
 This plugin will load and wait for a css file. CSS loaded with this plugin can be overwritten by

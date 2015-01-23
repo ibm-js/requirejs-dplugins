@@ -6,7 +6,9 @@
 		"lie": ">=2.8",
 		"requirejs": "2.1.x"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+		"jquery": ">=2.1"
+	},
 	"keywords": [
 		"requirejs",
 		"amd",
