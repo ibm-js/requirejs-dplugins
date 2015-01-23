@@ -95,5 +95,5 @@ define({
 	functionalSuites: ["requirejs-dplugins/tests/functional/all"],
 
 	// A regular expression matching URLs to files that should not be included in code coverage analysis
-	excludeInstrumentation: /(?:requirejs|jquery|tests|node_modules)(?:\/|\\)/
+	excludeInstrumentation: /(?:requirejs|lie|jquery|tests|node_modules)(?:\/|\\)/
 });

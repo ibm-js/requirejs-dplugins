@@ -3,11 +3,12 @@
 	"version": "0.4.2",
 	"description": "AMD plugins for RequireJS",
 	"dependencies": {
-		"jquery": ">=2.1",
 		"lie": ">=2.8",
 		"requirejs": "2.1.x"
 	},
-	"devDependencies": {},
+	"devDependencies": {
+		"jquery": ">=2.1"
+	},
 	"keywords": [
 		"requirejs",
 		"amd",
