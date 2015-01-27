@@ -35,8 +35,8 @@ Then install dependencies with bower (or manually from github if you prefer to):
 	$ cd requirejs-dplugins
 	$ bower install
 
-Of course, to use the jQuery plugin you will need to install jquery in your app via `bower install jquery` or
-via a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`). 
+When using the jQuery plugin, in order to be able to load jQuery modules, you must manually include jQuery into 
+your app via `bower install jquery` or via a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`).
 
 ## css
 This plugin will load and wait for a css file. CSS loaded with this plugin can be overwritten by
@@ -56,7 +56,7 @@ This plugin provides an API to handle string translation.
 See [docs/i18n.md](./docs/i18n.md) and [samples/i18n.html](./samples/i18n.html) for documentation and sample.
 
 ## jquery
-This plugin loads the specified jquery modules if they are not loaded already.
+This plugin loads the specified jQuery modules if they are not loaded already.
 
 See [docs/jquery.md](./docs/jquery.md) for documentation.
 

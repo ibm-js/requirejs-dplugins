@@ -11,8 +11,8 @@ library via a `<script>` tag, in which case it just returns a pointer to the alr
 
 It's useful to avoid loading jQuery twice.
 
-When using this plugin, you must manually include jquery into your app via `bower install jquery` or via
-a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`).
+When using this plugin, in order to be able to load jQuery modules, you must manually include jQuery into 
+your app via `bower install jquery` or via a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`).
 
 ## Example
 
