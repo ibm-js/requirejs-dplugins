@@ -3,7 +3,7 @@ layout: doc
 title: requirejs-dplugins/maybe
 ---
 
-# requirejs-dplugins/maybe
+# requirejs-dplugins/maybe!
 
 `requirejs-dplugins/maybe` allows to require modules that may or may not exist.
 If the module is not found, the loader will not crash (like it would do without this plugin) but there is an
