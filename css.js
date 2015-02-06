@@ -243,8 +243,8 @@ define([
 
 		loadCss.onLayerEnd = function (write, data) {
 			if (data.name && data.path) {
-				var dest = data.path.replace(/^(?:\.\/)?(([^\/]*\/)*)[^\/]*$/, "$1css/layer.css");
-				var destMid = data.name.replace(/^(([^\/]*\/)*)[^\/]*$/, "$1css/layer.css");
+				var dest = data.path.replace(/^(.*\/)?(.*)$/, "$1css/$2.css");
+				var destMid = data.name.replace(/^(.*\/)?(.*)\.js$/, "$1css/$2.css");
 
 				// Write layer file
 				var success = buildFunctions.writeLayer(writePluginFiles, dest, loadList);
