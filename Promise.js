@@ -27,8 +27,11 @@ define(["require"], function (require) {
 			} else if (typeof Promise === "function") {
 				onload(Promise);
 			} else {
-				// use global require to allow map configuration.
-				require(["lie/dist/lie"], function (lie) {
+				// Use absolute path to allow map configuration.
+				// Also use a variable to avoid RequireJS detection at build time so it is not included in the
+				// layer.
+				var lieId = "lie/dist/lie.min";
+				require([lieId], function (lie) {
 					onload(lie);
 				});
 			}
