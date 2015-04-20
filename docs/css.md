@@ -34,6 +34,7 @@ define(["requirejs-dplugins/css!myproj/comp.css"], function (){
 
 ## Build
 
-During the build, this plugin will collect all the CSS files required and create a layer with all the CSS
-files concatenated. This layer will be optimized using
-[clean-css](https://github.com/jakubpawlowicz/clean-css) if it is installed.
+To build a CSS layer containing all the CSS files required, [clean-css](https://github.com/jakubpawlowicz/clean-css)
+needs to be installed in the `node_modules` directory of the application.
+Clean-css should be added to the application `devDependencies` property in `package.json` so it is
+automatically installed with `npm install`.
