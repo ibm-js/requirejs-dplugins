@@ -30,7 +30,7 @@ define(["require"], function (require) {
 				// Use absolute path to allow map configuration.
 				// Also use a variable to avoid RequireJS detection at build time so it is not included in the
 				// layer.
-				var lieId = "lie/dist/lie.min";
+				var lieId = "lie/dist/lie";
 				require([lieId], function (lie) {
 					onload(lie);
 				});
