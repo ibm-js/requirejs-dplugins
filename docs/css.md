@@ -38,3 +38,9 @@ To build a CSS layer containing all the CSS files required, [clean-css](https://
 needs to be installed in the `node_modules` directory of the application.
 Clean-css should be added to the application `devDependencies` property in `package.json` so it is
 automatically installed with `npm install`.
+The following command will do that automatically:
+
+```bash
+$ npm install --save-dev clean-css
+``` 
+
