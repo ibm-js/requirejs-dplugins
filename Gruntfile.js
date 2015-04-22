@@ -84,10 +84,10 @@ module.exports = function (grunt) {
 	// Travis build
 	grunt.registerTask("travis", ["jshint", "test:remote"]);
 
-	grunt.registerTask("testBuild", "Run the builds used by the functional tests", function () {
+	grunt.registerTask("testBuild", "Run the build used by the functional test", function (test) {
 		var done = this.async();
 
-		var appRootDir = "tests/functional/jqueryApp";
+		var appRootDir = "tests/functional/" + test + "App";
 
 		function npmInstall(error, bowerResults) {
 			if (error !== null) {
@@ -168,7 +168,8 @@ module.exports = function (grunt) {
 		}
 
 		// First create the test builds. These are referenced from the intern tests.
-		grunt.task.run("testBuild");
+		grunt.task.run("testBuild:css");
+		grunt.task.run("testBuild:jquery");
 
 		// Then run the intern tests.
 		grunt.task.run("intern:" + target);
