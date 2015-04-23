@@ -15,7 +15,11 @@
 <script language="JavaScript" type="text/javascript">
 	var ready = false; // set to true when the test page is ready
 	require({
-		baseUrl: "build"
+		baseUrl: "build",
+		paths: {
+			// Needed for browser which does not support Promise natively.
+			lie: "../bower_components/lie"
+		}
 	}, [
 		"app"	// first load the layer
 	], function () {

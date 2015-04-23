@@ -23,7 +23,7 @@ define([
 				.findById("result").getComputedStyle("borderLeftStyle").then(function (style) {
 					assert.strictEqual(style, "dashed");
 				}).getComputedStyle("backgroundImage").then(function (style) {
-					var match = style.match(/(build\/resources\/test\.png)\)?;?$/);
+					var match = style.match(/(build\/resources\/test\.png)["']?\)?;?$/);
 					assert.strictEqual(match[1], "build/resources/test.png");
 				});
 		}
