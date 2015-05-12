@@ -1,6 +1,6 @@
 {
 	"name": "requirejs-dplugins",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"description": "AMD plugins for RequireJS",
 	"devDependencies": {
 		"grunt": "~0.4.1",
