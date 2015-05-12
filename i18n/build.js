@@ -1,5 +1,5 @@
 define(["./common"], function (common) {
-	var bundles = {},
+	var bundlesList = [],
 		localesList,
 		layerMid,
 
@@ -23,7 +23,7 @@ define(["./common"], function (common) {
 
 		getAllAvailableLocales = function () {
 			localesList = [];
-			Object.keys(bundles).forEach(function (name) {
+			bundlesList.forEach(function (name) {
 				var root = require(getMasterMid(name));
 
 				eachProp(root, function (loc) {
@@ -82,7 +82,7 @@ define(["./common"], function (common) {
 
 	return {
 		addBundleToNlsLayer: function (name) {
-			bundles[name] = true;
+			bundlesList.push(name);
 		},
 
 		setLocalesList: function (locList) {
@@ -93,7 +93,7 @@ define(["./common"], function (common) {
 		},
 
 		reset: function () {
-			bundles = {};
+			bundlesList = [];
 			localesList = undefined;
 			layerMid = undefined;
 		},
@@ -101,7 +101,7 @@ define(["./common"], function (common) {
 		getLayersContent: function () {
 			var layersContent = {};
 
-			Object.keys(bundles).forEach(function (name) {
+			bundlesList.forEach(function (name) {
 				var root = normalizeRoot(require(getMasterMid(name)), name),
 					pseudoRoots = getPseudoRoots(root);
 
@@ -134,7 +134,7 @@ define(["./common"], function (common) {
 		},
 
 		writeConfig: function (pluginName, data, write) {
-			var bundlesList = Object.keys(bundles).map(getMasterMid),
+			var bundles = bundlesList.map(getMasterMid),
 				layerMid = getLayerMid(data),
 				i18nConf = {
 					config: {}
@@ -143,7 +143,7 @@ define(["./common"], function (common) {
 				bundlesMap: {},
 				localesMap: {}
 			};
-			i18nConf.config[pluginName].bundlesMap[layerMid] = bundlesList;
+			i18nConf.config[pluginName].bundlesMap[layerMid] = bundles;
 			i18nConf.config[pluginName].localesMap[layerMid] = localesList;
 
 			// write i18n config on the layer
