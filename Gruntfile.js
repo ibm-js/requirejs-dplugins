@@ -76,10 +76,10 @@ module.exports = function (grunt) {
 
 
 	// By default, lint and run all tests.
-	grunt.registerTask("default", ["jsbeautifier", "lineending", "jshint", "test:remote"]);
+	grunt.registerTask("default", ["jshint", "test:remote"]);
 
 	// Just lint
-	grunt.registerTask("lint", ["jsbeautifier", "lineending", "jshint"]);
+	grunt.registerTask("lint", ["jshint"]);
 
 	// Travis build
 	grunt.registerTask("travis", ["jshint", "test:remote"]);
