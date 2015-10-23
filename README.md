@@ -69,7 +69,7 @@ See [docs/maybe.md](./docs/maybe.md) and [samples/maybe.html](./samples/maybe.ht
 ## Promise
 This plugin provides an ES6 Promise implementation. If the browser does not provide ES6 Promise, it provides a shim.
 
-See [docs/Promise.md](./docs/Promose.md) for documentation.
+See [docs/Promise.md](./docs/Promise.md) for documentation.
 
 ## svg
 This plugins provide an API for loading and bundling svg graphics.
