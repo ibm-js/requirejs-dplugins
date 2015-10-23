@@ -8,6 +8,7 @@ Set of AMD plugins for RequireJS. It contains the following plugins:
  * [jquery](#jquery)
  * [maybe](#maybe)
  * [Promise](#promise)
+ * [svg](#svg)
 
 ## Status
 
@@ -70,3 +71,7 @@ This plugin provides an ES6 Promise implementation. If the browser does not prov
 
 See [docs/Promise.md](./docs/Promose.md) for documentation.
 
+## svg
+This plugins provide an API for loading and bundling svg graphics.
+
+See [docs/svg.md](./docs/svg.md) for documentation.

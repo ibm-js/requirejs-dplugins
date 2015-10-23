@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Svg</title>
+
+	<script type="text/javascript" src="../../requirejs/require.js"></script>
+
+	<script type="text/javascript">
+		require.config({
+			baseUrl: "..",
+			paths: {
+				'requirejs-text': '../requirejs-text/'
+			}
+		});
+		require([
+			"svg!./samples/svg/add.svg",
+			"svg!./samples/svg/download.svg"
+		]);
+	</script>
+</head>
+<body>
+
+<svg>
+    <use xlink:href="#add"></use>
+</svg>
+<svg>
+	<use xlink:href="#download"></use>
+</svg>
+
+</body>
+</html>
