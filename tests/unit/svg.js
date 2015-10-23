@@ -5,7 +5,7 @@ define([
 	var context = 0;
 	function getContextRequire() {
 		return require.config({
-			context: "svg" + context++, // TODO: increment this
+			context: "svg" + context++,
 			baseUrl: "../../../requirejs-dplugins",
 			paths: {lie: "../lie", "requirejs-text": "../requirejs-text/"},
 			config: {
@@ -44,7 +44,7 @@ define([
 				assert.isNotNull(icon1, "icon1 was correctly added");
 				assert.isNotNull(icon2, "icon2 was correctly added");
 				assert.isNull(inexistentIcon, "inexistent-icon was not found as expected");
-				assert.strictEqual(symbols.length, 2, "total number of symbols found is correct")
+				assert.strictEqual(symbols.length, 2, "total number of symbols found is correct");
 			}));
 		},
 		"Checking svgs are correctly added to sprite": function () {
@@ -60,8 +60,8 @@ define([
 					icon64 = spriteContainer.querySelector("symbol#icon1_2x");
 				var viewBox32 = icon32.getAttribute("viewBox"),
 					viewBox64 = icon64.getAttribute("viewBox");
-				assert.strictEqual(viewBox32, "0 0 32 32", "viewBox was correctly set on the symbol")
-				assert.strictEqual(viewBox64, "0 0 64 64", "viewBox was correctly set on the symbol")
+				assert.strictEqual(viewBox32, "0 0 32 32", "viewBox was correctly set on the symbol");
+				assert.strictEqual(viewBox64, "0 0 64 64", "viewBox was correctly set on the symbol");
 			}));
 		},
 		"Checking svgs can't be added twice": function () {
@@ -73,7 +73,7 @@ define([
 			], dfd.callback(function () {
 				var spriteContainer = document.getElementById(CONTAINER_ID);
 				var svgs = spriteContainer.querySelectorAll("symbol#icon1");
-				assert.strictEqual(svgs.length, 1, "Icon was not added twice")
+				assert.strictEqual(svgs.length, 1, "Icon was not added twice");
 			}));
 		},
 		"Checking svg defined in sprite can't be reloaded": function () {
@@ -83,8 +83,10 @@ define([
 				"svg!tests/unit/resources/svg/never-loaded.svg"
 			], dfd.callback(function () {
 				var spriteContainer = document.getElementById(CONTAINER_ID);
-				var svgs = spriteContainer.querySelectorAll("symbol#never-loaded");
-				assert.strictEqual(svgs.length, 0, "Icon was not loaded")
+				var svgs = spriteContainer.querySelectorAll("symbol#never-loaded"),
+					sprite = spriteContainer.querySelectorAll("symbol#sprite");
+				assert.strictEqual(svgs.length, 0, "Icon was not loaded");
+				assert.strictEqual(sprite.length, 1, "Sprite was loaded instead");
 			}));
 		}
 	});
