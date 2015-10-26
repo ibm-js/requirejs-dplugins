@@ -5,14 +5,14 @@ title: requirejs-dplugins/svg
 
 # requirejs-dplugins/svg!
 
-This plugin load svg graphics and declares them in one sprite. This sprite is automatically added to your DOM, so that you can reference included graphics in a `<use>` tag.
+This plugin loads an svg graphic and defines it in the DOM, so you can reference it in a `<use>` tag.
 
 ## Example
 
 ```js
 define([
-    "requirejs-dplugins/svg!./icon1.svg",
-    "requirejs-dplugins/svg!./icon2.svg"
+    "requirejs-dplugins/svg!./icon1.svg", // <svg id="icon1"...
+    "requirejs-dplugins/svg!./icon2.svg"  // <svg id="icon2"...
 ], function(id1, id2){
 	// id1 === "icon1" and id2 === "icon2"
 })
@@ -35,7 +35,7 @@ You can then use the icons anytime only with
 </svg>
 ```
 
-If the first `<svg>` tag of your graphic holds an `id` attribute, this id will be used as the reference. Otherwise, the name of the file is used.
+If the first `<svg>` tag of your graphic should have an `id` attribute which will be used as the reference.
 
 ## Build
 The build step will merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
