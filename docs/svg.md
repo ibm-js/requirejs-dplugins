@@ -18,7 +18,7 @@ define([
 })
 ```
 
-This will fetch `icon1.svg` and `icon2.svg` and add two symbols to the sprite.
+This will fetch `icon1.svg` and `icon2.svg` and define two symbols in the DOM
 ```svg
 <svg>
 	...
@@ -27,7 +27,7 @@ This will fetch `icon1.svg` and `icon2.svg` and add two symbols to the sprite.
 </svg>
 ```
 
-You can then use the icons anytime only with
+You can then use the icons anytime with
 
 ```
 <svg>
@@ -35,19 +35,15 @@ You can then use the icons anytime only with
 </svg>
 ```
 
-If the first `<svg>` tag of your graphic should have an `id` attribute which will be used as the reference.
+Note that the first `<svg>` tag of your graphic should have an `id` attribute which will be used as the reference.
+It should also have a `viewBox` attribute. 
 
-## Build
-The build step will merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
-When running the built version, this sprite is fetched as soon as one of the graphic inside is required.
-
-
-## Creating graphics that work well with this plugin 
-
-To work properly, your graphic should include a `viewBox` attribute. The `id` is optional. 
-As an example, here is the minimal markup your graphic should include:
+As an example, here is the minimal markup your graphic should follow:
 
 ```svg
 <svg id="my-graphic" viewBox="0 0 80 120"> ... </svg>
 ```
 
+## Build
+The build step will merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
+When running the built version, this sprite is fetched as soon as one of the graphics inside is required.
