@@ -45,5 +45,14 @@ As an example, here is the minimal markup your graphic should follow:
 ```
 
 ## Build
-The build step will merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
+`jsdom` is used during the build step to merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
 When running the built version, this sprite is fetched as soon as one of the graphics inside is required.
+
+Note that `jsdom` should be added to your application `devDependencies` property in `package.json` so it is
+automatically installed with `npm install`.
+The following command will do that automatically:
+
+```bash
+$ npm install --save-dev jsdom
+``` 
+

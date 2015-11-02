@@ -160,7 +160,7 @@ define([
 					return false;
 				} else {
 					var jsdom = jsDomModule.jsdom,
-						document = jsdom("<html></html>").parentWindow.document,
+						document = jsdom("<html></html>"),
 						sprite = createSprite(document);
 
 					for (path in loaded) {
