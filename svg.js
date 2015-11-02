@@ -17,9 +17,10 @@ define([
 	"./has",
 	"./Promise!",
 	"module",
+	"require",
 	"requirejs-text/text",
 	"requirejs-domready/domReady"
-], function (has, Promise, module) {
+], function (has, Promise, module, localRequire, textPlugin) {
 	"use strict";
 
 	var loaded = {}, // paths of loaded svgs
@@ -33,11 +34,11 @@ define([
 		/**
 		 * Loads an svg file.
 		 * @param {string} path - The svg file to load.
-		 * @param {Function} require - A local require function to use to load other modules.
+		 * @param {Function} resourceRequire - A require function local to the module calling the svg plugin.
 		 * @param {Function} onload - A function to call when the specified svg file have been loaded.
 		 * @method
 		 */
-		load: function (path, require, onload) {
+		load: function (path, resourceRequire, onload) {
 			if (has("builder")) { // when building
 				loaded[path] = true;
 				onload();
@@ -53,17 +54,16 @@ define([
 
 				if (!(path in loaded)) {
 					loaded[path] = new Promise(function (resolve) {
-						require([
-							'requirejs-text/text!' + path,
-							"requirejs-domready/domReady!"
-						], function (svgText) {
-							if (!sprite) {
-								sprite = createSprite(document, SPRITE_ID);
-								document.body.appendChild(sprite);
-							}
-							var symbol = extractGraphicAsSymbol(document, svgText);
-							sprite.appendChild(symbol);
-							resolve(symbol.getAttribute("id"));
+						localRequire(["requirejs-domready/domReady!"], function () {
+							textPlugin.load(path, resourceRequire, function (svgText) {
+								if (!sprite) {
+									sprite = createSprite(document, SPRITE_ID);
+									document.body.appendChild(sprite);
+								}
+								var symbol = extractGraphicAsSymbol(document, svgText);
+								sprite.appendChild(symbol);
+								resolve(symbol.getAttribute("id"));
+							});
 						});
 					});
 				}
@@ -126,19 +126,54 @@ define([
 			 * @param {Array} loaded - Maps the paths of the svg files contained in current sprite to their ids.
 			 */
 			writeLayer: function (writePluginFiles, dest, loaded) {
-				var fs = require.nodeRequire("fs"),
-					jsdom = require.nodeRequire("jsdom").jsdom;
-
-				var document = jsdom("<html></html>").parentWindow.document;
-				var sprite = createSprite(document);
-
-				for (var path in loaded) {
-					var svgText = fs.readFileSync(require.toUrl(path), "utf8"),
-						symbol = extractGraphicAsSymbol(document, svgText);
-					sprite.appendChild(symbol);
-					loaded[path] = symbol.getAttribute("id");
+				function tryRequire(paths) {
+					var module;
+					var path = paths.shift();
+					if (path) {
+						try {
+							// This is a node-require so it is synchronous.
+							module = require.nodeRequire(path);
+						} catch (e) {
+							if (e.code === "MODULE_NOT_FOUND") {
+								return tryRequire(paths);
+							} else {
+								throw e;
+							}
+						}
+					}
+					return module;
 				}
-				writePluginFiles(dest, sprite.outerHTML);
+
+				var fs = require.nodeRequire("fs"),
+					jsDomPath = require.getNodePath(require.toUrl(module.id).replace(/[^\/]*$/, "node_modules/jsdom")),
+					jsDomModule = tryRequire([jsDomPath, "jsdom"]);
+
+				var path, url, svgText;
+				if (!jsDomModule) {
+					console.log(">> WARNING: Node module jsdom not found. Skipping SVG bundling. If you" +
+						" want SVG bundling run 'npm install jsdom' in your console.");
+					for (path in loaded) {
+						url = require.toUrl(path);
+						svgText = fs.readFileSync(url, "utf8");
+						writePluginFiles(url, svgText);
+					}
+					return false;
+				} else {
+					var jsdom = jsDomModule.jsdom,
+						document = jsdom("<html></html>").parentWindow.document,
+						sprite = createSprite(document);
+
+					for (path in loaded) {
+						url = require.toUrl(path);
+						svgText = fs.readFileSync(url, "utf8");
+						var symbol = extractGraphicAsSymbol(document, svgText);
+						sprite.appendChild(symbol);
+						loaded[path] = symbol.getAttribute("id");
+					}
+
+					writePluginFiles(dest, sprite.outerHTML);
+					return true;
+				}
 			}
 		};
 
@@ -152,8 +187,8 @@ define([
 					destMid = layer.name + ".svg";
 
 				// Write layer file and config
-				buildFunctions.writeLayer(writePluginFiles, dest, loaded);
-				buildFunctions.writeConfig(write, module.id, destMid, loaded);
+				var success = buildFunctions.writeLayer(writePluginFiles, dest, loaded);
+				success && buildFunctions.writeConfig(write, module.id, destMid, loaded);
 
 				// Reset cache
 				loaded = {};
