@@ -72,6 +72,6 @@ This plugin provides an ES6 Promise implementation. If the browser does not prov
 See [docs/Promise.md](./docs/Promise.md) for documentation.
 
 ## svg
-This plugins provide an API for loading and bundling svg graphics.
+This plugin loads an svg graphic and defines it in the DOM, so you can reference it in a `<use>` tag.
 
 See [docs/svg.md](./docs/svg.md) for documentation.

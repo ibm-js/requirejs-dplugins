@@ -5,20 +5,20 @@ title: requirejs-dplugins/svg
 
 # requirejs-dplugins/svg!
 
-This plugin load svg graphics and declares them in one sprite. This sprite is automatically added to your DOM, so that you can reference included graphics in a `<use>` tag.
+This plugin loads an svg graphic and defines it in the DOM, so you can reference it in a `<use>` tag.
 
 ## Example
 
 ```js
 define([
-    "requirejs-dplugins/svg!./icon1.svg",
-    "requirejs-dplugins/svg!./icon2.svg"
+    "requirejs-dplugins/svg!./icon1.svg", // <svg id="icon1"...
+    "requirejs-dplugins/svg!./icon2.svg"  // <svg id="icon2"...
 ], function(id1, id2){
 	// id1 === "icon1" and id2 === "icon2"
 })
 ```
 
-This will fetch `icon1.svg` and `icon2.svg` and add two symbols to the sprite.
+This will fetch `icon1.svg` and `icon2.svg` and define two symbols in the DOM
 ```svg
 <svg>
 	...
@@ -27,7 +27,7 @@ This will fetch `icon1.svg` and `icon2.svg` and add two symbols to the sprite.
 </svg>
 ```
 
-You can then use the icons anytime only with
+You can then use the icons anytime with
 
 ```
 <svg>
@@ -35,19 +35,24 @@ You can then use the icons anytime only with
 </svg>
 ```
 
-If the first `<svg>` tag of your graphic holds an `id` attribute, this id will be used as the reference. Otherwise, the name of the file is used.
+Note that the first `<svg>` tag of your graphic should have an `id` attribute which will be used as the reference.
+It should also have a `viewBox` attribute. 
 
-## Build
-The build step will merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
-When running the built version, this sprite is fetched as soon as one of the graphic inside is required.
-
-
-## Creating graphics that work well with this plugin 
-
-To work properly, your graphic should include a `viewBox` attribute. The `id` is optional. 
-As an example, here is the minimal markup your graphic should include:
+As an example, here is the minimal markup your graphic should follow:
 
 ```svg
 <svg id="my-graphic" viewBox="0 0 80 120"> ... </svg>
 ```
+
+## Build
+`jsdom` is used during the build step to merge all graphics in one sprite beforehand and save the result in a `<layer>.svg`. 
+When running the built version, this sprite is fetched as soon as one of the graphics inside is required.
+
+Note that `jsdom` should be added to your application `devDependencies` property in `package.json` so it is
+automatically installed with `npm install`.
+The following command will do that automatically:
+
+```bash
+$ npm install --save-dev jsdom
+``` 
 

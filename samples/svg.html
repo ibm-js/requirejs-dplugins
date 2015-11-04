@@ -7,14 +7,11 @@
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "..",
-			paths: {
-				'requirejs-text': '../requirejs-text/'
-			}
+			baseUrl: "../.."
 		});
 		require([
-			"svg!./samples/svg/add.svg",
-			"svg!./samples/svg/download.svg"
+			"requirejs-dplugins/svg!requirejs-dplugins/samples/svg/add.svg",
+			"requirejs-dplugins/svg!requirejs-dplugins/samples/svg/download.svg"
 		]);
 	</script>
 </head>
