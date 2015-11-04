@@ -62,7 +62,7 @@ module.exports = function (grunt) {
 			// Delete files created by the "testBuild" target.
 			testBuild: [
 				"tests/functional/jqueryApp/{bower_components,node_modules,build,tmp}",
-				"tests/jquery.js" // work around grunt-amd-build bug where it puts files outside of tmp/ dir
+				"tests/functional/cssApp/{bower_components,node_modules,build,tmp}"
 			]
 		}
 	});

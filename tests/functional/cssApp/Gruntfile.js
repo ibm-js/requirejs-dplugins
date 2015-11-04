@@ -9,7 +9,8 @@ module.exports = function (grunt) {
 
 	var outprop = "amdoutput";
 	var outdir = "./build/";
-	var tmpdir = "./tmp/";
+	// use a depth of 4 directory to keep tmpdir/../../.. inside a tmp directory
+	var tmpdir = "./tmp/tmp/tmp/tmp";
 
 	grunt.initConfig({
 		amdloader: {
@@ -77,7 +78,7 @@ module.exports = function (grunt) {
 		var name = this.name, layers = grunt.config(name).layers;
 		layers.forEach(function (layer) {
 			grunt.task.run("amddepsscan:" + layer.name + ":" + name + ":" + amdloader);
-			grunt.task.run("amdserialize:" + layer.name + ":" + name + ":" + outprop);
+			grunt.task.run("amdserialize:" + layer.name + ":" + name + ":" + amdloader + ":" + outprop);
 			grunt.task.run("concat");
 			grunt.task.run("copy:plugins");
 		});
