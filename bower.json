@@ -5,7 +5,8 @@
 	"dependencies": {
 		"lie": ">=2.8",
 		"requirejs": "2.1.x",
-		"requirejs-text": "2.0.x"
+		"requirejs-text": "2.0.x",
+		"requirejs-domready": "2.0.x"
 	},
 	"devDependencies": {
 		"jquery": ">=2.1"
