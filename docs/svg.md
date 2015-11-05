@@ -19,7 +19,7 @@ define([
 ```
 
 This will fetch `icon1.svg` and `icon2.svg` and define two symbols in the DOM
-```svg
+```xml
 <svg>
 	...
 	<symbol id="icon1" viewBox="..." > ... </symbol>
@@ -29,7 +29,7 @@ This will fetch `icon1.svg` and `icon2.svg` and define two symbols in the DOM
 
 You can then use the icons anytime with
 
-```
+```xml
 <svg>
 	<use xlink:href="#icon1"></use>
 </svg>
@@ -40,7 +40,7 @@ It should also have a `viewBox` attribute.
 
 As an example, here is the minimal markup your graphic should follow:
 
-```svg
+```xml
 <svg id="my-graphic" viewBox="0 0 80 120"> ... </svg>
 ```
 

@@ -11,3 +11,4 @@ Requirejs-dplugins provides a set of AMD plugins compatible with requirejs and g
 * [jquery](jquery.md) - loads the jquery modules if they are not loaded already.
 * [maybe](maybe.md) - requires modules that may or may not exist.
 * [Promise](Promise.md) - provides ES6 Promise implementation.
+* [svg](svg.md) - loads an svg graphic.
