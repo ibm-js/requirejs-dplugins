@@ -148,7 +148,8 @@ define([
 				var svgs = spriteContainer.querySelectorAll("symbol");
 				assert.strictEqual(svgs.length, 1, "Icon with empty viewBox was loaded");
 				var viewBoxAttr = svgs[0].getAttribute("viewBox");
-				assert.strictEqual(viewBoxAttr, "", "Icon with empty viewBox gets an empty viewBox attribute in the sprite");
+				// use notOk because IE insist to set viewBoxAttr to null while other browsers return ""
+				assert.notOk(viewBoxAttr, "Icon with empty viewBox gets an empty viewBox attribute in the sprite");
 			}));
 		},
 		"Loading an icon with a lowercase viewbox": function () {
