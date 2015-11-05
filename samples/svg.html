@@ -12,16 +12,19 @@
 		require([
 			"requirejs-dplugins/svg!requirejs-dplugins/samples/svg/add.svg",
 			"requirejs-dplugins/svg!requirejs-dplugins/samples/svg/download.svg"
-		]);
+		], function (addId, downloadId) {
+			document.getElementById("addIcon").setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + addId);
+			document.getElementById("downloadIcon").setAttributeNS("http://www.w3.org/1999/xlink", "href", "#" + downloadId);
+		});
 	</script>
 </head>
 <body>
 
 <svg>
-    <use xlink:href="#add"></use>
+    <use id="addIcon"></use>
 </svg>
 <svg>
-	<use xlink:href="#download"></use>
+	<use id="downloadIcon"></use>
 </svg>
 
 </body>
