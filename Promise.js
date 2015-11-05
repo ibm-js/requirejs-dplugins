@@ -19,6 +19,9 @@
  */
 /* global Promise */
 define(["require"], function (require) {
+	var writeFile;
+	var lieId = "lie/dist/lie";
+
 	return {
 		load: function (name, req, onload, config) {
 			config = config || {};
@@ -30,11 +33,19 @@ define(["require"], function (require) {
 				// Use absolute path to allow map configuration.
 				// Also use a variable to avoid RequireJS detection at build time so it is not included in the
 				// layer.
-				var lieId = "lie/dist/lie";
 				require([lieId], function (lie) {
 					onload(lie);
 				});
 			}
+		},
+		writeFile: function (pluginName, resource, require, write) {
+			writeFile = write;
+		},
+		onLayerEnd: function () {
+			var fs = require("fs");
+			var url = require.toUrl(lieId + ".js");
+			// copy lie to the build output.
+			writeFile(url, fs.readFileSync(url));
 		}
 	};
 });
