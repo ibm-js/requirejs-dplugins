@@ -41,26 +41,26 @@ define({
 		// Mobile
 		// Disabled because environments are often unavailable on sauce and randomly break the build.
 		// {
-			// browserName: "iphone",
-			// version: "7.0",
-			// platform: "OS X 10.9",
-			// name: "requirejs-dplugins"
+		// browserName: "iphone",
+		// version: "7.0",
+		// platform: "OS X 10.9",
+		// name: "requirejs-dplugins"
 		// }, {
-			// browserName: "iphone",
-			// version: "7.1",
-			// platform: "OS X 10.9",
-			// name: "requirejs-dplugins"
+		// browserName: "iphone",
+		// version: "7.1",
+		// platform: "OS X 10.9",
+		// name: "requirejs-dplugins"
 		// },
 		// {
-			// browserName: "ipad",
-			// version: "7.0",
-			// platform: "OS X 10.9",
-			// name: "requirejs-dplugins"
+		// browserName: "ipad",
+		// version: "7.0",
+		// platform: "OS X 10.9",
+		// name: "requirejs-dplugins"
 		// }, {
-			// browserName: "ipad",
-			// version: "7.1",
-			// platform: "OS X 10.9",
-			// name: "requirejs-dplugins"
+		// browserName: "ipad",
+		// version: "7.1",
+		// platform: "OS X 10.9",
+		// name: "requirejs-dplugins"
 		// }
 
 	],

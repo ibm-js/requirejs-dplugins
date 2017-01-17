@@ -22,9 +22,9 @@ define(["./parentLocale"], function (parentLocale) {
 			if (!locale) {
 				locale = typeof navigator === "undefined" ? "root" :
 					(navigator.language ||
-					// IE <= 10
-					navigator.userLanguage ||
-					"root");
+						// IE <= 10
+						navigator.userLanguage ||
+						"root");
 			}
 			// just to be extra-sure
 			return locale.toLowerCase();

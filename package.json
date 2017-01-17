@@ -12,11 +12,9 @@
 		"grunt-lineending": "^0.2.2",
 		"jsdom": "^3.1.2"
 	},
-	"licenses": [
-		{
-			"type": "BSD",
-			"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
-		}
-	],
+	"licenses": [{
+		"type": "BSD",
+		"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
+	}],
 	"private": true
 }

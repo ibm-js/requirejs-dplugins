@@ -23,7 +23,7 @@ define([], function () {
 	require.config({
 		map: {
 			jquery: {
-				"jquery/src/selector": "jquery/src/selector-native"     // don't pull in sizzle
+				"jquery/src/selector": "jquery/src/selector-native" // don't pull in sizzle
 			}
 		}
 	});
