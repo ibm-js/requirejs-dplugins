@@ -27,7 +27,7 @@ define(["require"], function (require) {
 			config = config || {};
 			if (config.isBuild) {
 				onload();
-			} else if (typeof Promise === "function") {
+			} else if (typeof Promise === "function" && Promise.prototype.finally) {
 				onload(Promise);
 			} else {
 				// Use absolute path to allow map configuration.
