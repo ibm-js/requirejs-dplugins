@@ -68,6 +68,6 @@
         "maxlen": 120,
         "indent": 4,
         "maxerr": 250,
-        "predef": [ "require", "define", "module" ],
+        "predef": [ "require", "define", "module", "intern", "requirejs" ],
         "maxcomplexity": 10
 }

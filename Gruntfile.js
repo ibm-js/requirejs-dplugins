@@ -4,6 +4,7 @@ module.exports = function (grunt) {
 	var filesList = [
 		"*.js",
 		"*.json",
+		"!package-lock.json",
 		"i18n/*.js",
 		"tests/*.js"
 	];
@@ -41,19 +42,23 @@ module.exports = function (grunt) {
 			}
 		},
 
-		intern: {
-			remote: {
+		// Run Intern from grunt while still using the intern.json file.
+		// There are many ways to do this, so I just picked one.
+		// Note though that the grunt intern task does not automatically load intern.json.
+		run: {
+			"intern-local": {
+				cmd: "npx",
+				args: ["intern"],
 				options: {
-					runType: "runner",
-					config: "tests/intern",
-					reporters: ["runner"]
+					failOnError: true
 				}
 			},
-			local: {
+
+			"intern-remote": {
+				cmd: "npx",
+				args: ["intern", "config=@sauce"],
 				options: {
-					runType: "runner", // defaults to "client"
-					config: "tests/intern.local",
-					reporters: ["runner"]
+					failOnError: true
 				}
 			}
 		},
@@ -72,8 +77,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-jsbeautifier");
 	grunt.loadNpmTasks("grunt-lineending");
-	grunt.loadNpmTasks("intern");
-
+	grunt.loadNpmTasks("grunt-run");
 
 	// By default, lint and run all tests.
 	grunt.registerTask("default", ["jshint", "test:remote"]);
@@ -138,41 +142,20 @@ module.exports = function (grunt) {
 	});
 
 	// Testing.
-	// Always specify the target e.g. grunt test:remote, grunt test:remote
-	// then add on any other flags afterwards e.g. console, lcovhtml.
+	// Always specify the target e.g. grunt test:remote, grunt test:remote.
+	// For more control, run testBuild:css and testBuild:jquery manually, then
+	// directly call "npx intern".
 	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
 		"Always specify the test target e.g. \n" +
 		"grunt test:local\n" +
-		"grunt test:remote\n\n" +
-		"Add any optional reporters via a flag e.g. \n" +
-		"grunt test:local:console\n" +
-		"grunt test:local:lcovhtml\n" +
-		"grunt test:local:console:lcovhtml";
+		"grunt test:remote";
 	grunt.registerTask("test", testTaskDescription, function (target) {
-		function addReporter(reporter) {
-			var property = "intern." + target + ".options.reporters",
-				value = grunt.config.get(property);
-			if (value.indexOf(reporter) !== -1) {
-				return;
-			}
-			value.push(reporter);
-			grunt.config.set(property, value);
-		}
-
-		if (this.flags.lcovhtml) {
-			addReporter("lcovhtml");
-		}
-
-		if (this.flags.console) {
-			addReporter("console");
-		}
-
 		// First create the test builds. These are referenced from the intern tests.
 		grunt.task.run("testBuild:css");
 		grunt.task.run("testBuild:jquery");
 
 		// Then run the intern tests.
-		grunt.task.run("intern:" + target);
+		grunt.task.run("run:intern-" + target);
 
 		// Finally, delete the test builds so that they don't show up in "git status" as "untracked files".
 		grunt.task.run("clean:testBuild");

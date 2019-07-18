@@ -29,15 +29,6 @@ $ grunt intern:remote
 
 ## Running the unit tests locally
 
-1) Download selenium server 2.37.0 (http://www.seleniumhq.org/download/) and start it on the default port (4444):
-
-```
-$ java -jar selenium-server-standalone-2.37.0.jar
-```
-
-2) Edit [intern.local.js](./intern.local.js) to list which browsers to test
-
-3) Run the tests:
 
 ```
 $ grunt intern:local
