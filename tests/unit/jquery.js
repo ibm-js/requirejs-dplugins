@@ -1,10 +1,13 @@
-define([
-	"intern!object",
-	"intern/chai!assert"
-], function (registerSuite, assert) {
+define(function () {
+	"use strict";
+
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
+
 	var index = 0;
+
 	function getContextRequire() {
-		return require.config({
+		return requirejs.config({
 			//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
 			//		to be able to access requirejs-dplugins sibling directories.
 			baseUrl: "../../..",
@@ -12,9 +15,8 @@ define([
 		});
 	}
 
-	registerSuite({
-		name: "jquery plugin",
-		basic: function () {
+	registerSuite("jquery plugin", {
+		"basic": function () {
 			var dfd = this.async();
 
 			var contextRequire = getContextRequire();

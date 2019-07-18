@@ -1,8 +1,8 @@
 /* global context:true, onlyLayer:true */
-define([
-	"intern!object",
-	"intern/chai!assert"
-], function (registerSuite, assert) {
+define(function () {
+	var registerSuite = intern.getPlugin("interface.object").registerSuite;
+	var assert = intern.getPlugin("chai").assert;
+
 	var index = 0;
 
 	function getNewContext() {
@@ -12,7 +12,7 @@ define([
 
 	function setupContext(options) {
 		context = getNewContext();
-		require.config({
+		requirejs.config({
 			context: context,
 			//note: BaseUrl is relative to requirejs-dplugins/node_modules/intern/ so baseUrl needs 3 "../"
 			//		to be able to access requirejs-dplugins sibling directories.
@@ -34,7 +34,7 @@ define([
 	}
 
 	function execTest(locale, testFunc) {
-		var contextRequire = require.config({
+		var contextRequire = requirejs.config({
 			context: context,
 			locale: locale
 		});
@@ -53,285 +53,317 @@ define([
 	}
 
 
-	registerSuite({
-		name: "i18n - layerOnly - !enhanceLayer - languagePack",
-		setup: function () {
+	registerSuite("i18n - layerOnly - !enhanceLayer - languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = true;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, false, true]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hint = "The text should come from the exact layer";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
-			}));
-		},
-		"fr-fr (404 fr-fr expected)": function () {
-			var dfd = this.async();
-			var hint = "The text should come from the best layer (ie. fr)";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hint = "The text should come from the exact layer";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hint = "The unknown layer en should be used";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "En from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "En from Layer Bundle B", hint);
-			}));
-		},
-		"it (404 it expected)": function () {
-			var dfd = this.async();
-			var hint = "The root layer should be used when a locale does not exist";
+			"fr-fr (404 fr-fr expected)": function () {
+				var dfd = this.async();
+				var hint = "The text should come from the best layer (ie. fr)";
 
-			execTest("it", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
-			}));
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hint = "The unknown layer en should be used";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "En from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "En from Layer Bundle B", hint);
+				}));
+			},
+
+			"it (404 it expected)": function () {
+				var dfd = this.async();
+				var hint = "The root layer should be used when a locale does not exist";
+
+				execTest("it", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
+				}));
+			}
 		}
 	});
 
-	registerSuite({
-		name: "i18n - layerOnly - !enhanceLayer - !languagePack",
-		setup: function () {
+	registerSuite("i18n - layerOnly - !enhanceLayer - !languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = true;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, false, false]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hint = "The text should come from the exact layer";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
-			}));
-		},
-		"fr-fr": function () {
-			var dfd = this.async();
-			var hint = "The text should come from the best layer (ie. fr)";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hint = "The text should come from the exact layer";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hint = "The en layer should not be discovered";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
-			}));
-		},
-		"it": function () {
-			var dfd = this.async();
-			var hint = "The root layer should be used when a locale does not exist";
+			"fr-fr": function () {
+				var dfd = this.async();
+				var hint = "The text should come from the best layer (ie. fr)";
 
-			execTest("it", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
-				assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
-			}));
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hint);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hint = "The en layer should not be discovered";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
+				}));
+			},
+
+			"it": function () {
+				var dfd = this.async();
+				var hint = "The root layer should be used when a locale does not exist";
+
+				execTest("it", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hint);
+					assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hint);
+				}));
+			}
 		}
 	});
 
-	registerSuite({
-		name: "i18n - !layerOnly - !enhanceLayer - !languagePack",
-		setup: function () {
+	registerSuite("i18n - !layerOnly - !enhanceLayer - !languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = false;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, false, false]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The text should come from the exact layer";
-			var hintBundle = "The best match should be found";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"fr-fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer should not be enhanced";
-			var hintBundle = "The best match should be found";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The text should come from the exact layer";
+				var hintBundle = "The best match should be found";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer en should not be found";
-			var hintBundle = "The best match should be found";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
-			}));
+			"fr-fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer should not be enhanced";
+				var hintBundle = "The best match should be found";
+
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer en should not be found";
+				var hintBundle = "The best match should be found";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
+				}));
+			}
 		}
 	});
 
-	registerSuite({
-		name: "i18n - !layerOnly - enhanceLayer - !languagePack",
-		setup: function () {
+	registerSuite("i18n - !layerOnly - enhanceLayer - !languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = false;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, true, false]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The text should come from the exact layer";
-			var hintBundle = "The best match should be found";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"fr-fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer should be enhanced";
-			var hintBundle = "The best match should be found";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The text should come from the exact layer";
+				var hintBundle = "The best match should be found";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr-fr from Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer en should not be found";
-			var hintBundle = "The best match should be found";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
-			}));
+			"fr-fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer should be enhanced";
+				var hintBundle = "The best match should be found";
+
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr-fr from Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer en should not be found";
+				var hintBundle = "The best match should be found";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Root Text from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Root Text from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
+				}));
+			}
 		}
 	});
 
-	registerSuite({
-		name: "i18n - !layerOnly - !enhanceLayer - languagePack",
-		setup: function () {
+	registerSuite("i18n - !layerOnly - !enhanceLayer - languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = false;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, false, true]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The text should come from the exact layer";
-			var hintBundle = "The best match should be found";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"fr-fr (404 fr-fr expected)": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer should not be enhanced";
-			var hintBundle = "The best match should be found";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The text should come from the exact layer";
+				var hintBundle = "The best match should be found";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer en should be found";
-			var hintBundle = "The best match should be found";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "En from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "En from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
-			}));
+			"fr-fr (404 fr-fr expected)": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer should not be enhanced";
+				var hintBundle = "The best match should be found";
+
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer en should be found";
+				var hintBundle = "The best match should be found";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "En from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "En from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
+				}));
+			}
 		}
 	});
 
-	registerSuite({
-		name: "i18n - !layerOnly - enhanceLayer - languagePack",
-		setup: function () {
+	registerSuite("i18n - !layerOnly - enhanceLayer - languagePack", {
+		before: function () {
 			context = "";
 			onlyLayer = false;
 		},
+
 		beforeEach: function () {
 			setupContext([onlyLayer, true, true]);
 		},
-		"fr": function () {
-			var dfd = this.async();
-			var hintLayer = "The text should come from the exact layer";
-			var hintBundle = "The best match should be found";
 
-			execTest("fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"fr-fr (404 fr-fr expected)": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer should be enhanced";
-			var hintBundle = "The best match should be found";
+		tests: {
+			"fr": function () {
+				var dfd = this.async();
+				var hintLayer = "The text should come from the exact layer";
+				var hintBundle = "The best match should be found";
 
-			execTest("fr-fr", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "Fr-fr from Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
-			}));
-		},
-		"en": function () {
-			var dfd = this.async();
-			var hintLayer = "The layer en should be found";
-			var hintBundle = "The best match should be found";
+				execTest("fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
 
-			execTest("en", dfd.callback(function (test) {
-				assert.strictEqual(test.bundleA, "En from Layer Bundle A", hintLayer);
-				assert.strictEqual(test.bundleB, "En from Layer Bundle B", hintLayer);
-				assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
-				assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
-			}));
+			"fr-fr (404 fr-fr expected)": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer should be enhanced";
+				var hintBundle = "The best match should be found";
+
+				execTest("fr-fr", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "Fr-fr from Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "Fr from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Fr-fr from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Fr from Bundle D", hintBundle);
+				}));
+			},
+
+			"en": function () {
+				var dfd = this.async();
+				var hintLayer = "The layer en should be found";
+				var hintBundle = "The best match should be found";
+
+				execTest("en", dfd.callback(function (test) {
+					assert.strictEqual(test.bundleA, "En from Layer Bundle A", hintLayer);
+					assert.strictEqual(test.bundleB, "En from Layer Bundle B", hintLayer);
+					assert.strictEqual(test.bundleC, "Root Text from Bundle C", hintBundle);
+					assert.strictEqual(test.bundleD, "Root Text from Bundle D", hintBundle);
+				}));
+			}
 		}
 	});
 });
