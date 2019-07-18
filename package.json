@@ -3,14 +3,14 @@
 	"version": "0.6.1",
 	"description": "AMD plugins for RequireJS",
 	"devDependencies": {
-		"grunt": "~0.4.1",
-		"grunt-contrib-clean": "0.6.x",
-		"grunt-contrib-jshint": "~0.6.0",
-		"grunt-jsbeautifier": "~0.2.2",
-		"requirejs": "~2.1.10",
+		"grunt": "1.0.x",
+		"grunt-contrib-clean": "2.0.x",
+		"grunt-contrib-jshint": "2.1.x",
+		"grunt-jsbeautifier": "0.2.x",
+		"requirejs": "2.1.x",
 		"intern": "2.1.x",
-		"grunt-lineending": "^0.2.2",
-		"jsdom": "^3.1.2"
+		"grunt-lineending": "1.0.x",
+		"jsdom": "15.1.x"
 	},
 	"licenses": [
 		{
