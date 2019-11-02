@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Test application using css! plugin",
   "devDependencies": {
-    "clean-css": "3.2.2",
+    "clean-css": "4.2.1",
     "grunt-amd-build": "0.10.0-alpha",
     "grunt-contrib-clean": "0.6.x",
     "grunt-contrib-concat": "0.5.x",
