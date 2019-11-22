@@ -44,8 +44,6 @@
 	],
 
 	"functionalSuites": [
-		"./tests/functional/cssBuild",
-		"./tests/functional/jqueryBuild",
 		"./tests/functional/jqueryScript"
 	],
 
