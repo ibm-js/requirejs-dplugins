@@ -3,17 +3,22 @@
 <head>
 	<title>Has</title>
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		var inverse = (window.location.search.substring(1) === "inverse");
 
 		require.config({
-			baseUrl: "../..",
-			packages: [{
-				name: "modules",
-				location: "requirejs-dplugins/samples/modules"
-			}],
+			packages: [
+				{
+					name: "requirejs-dplugins",
+					location: ".."
+				},
+				{
+					name: "modules",
+					location: "./modules"
+				}
+			],
 			config: {
 				"requirejs-dplugins/has": {
 					inverseColor: inverse

@@ -3,11 +3,16 @@
 <head>
 	<title>i18n</title>
 
-	<script type="text/javascript" src="../../requirejs/require.js"></script>
+	<script type="text/javascript" src="../node_modules/requirejs/require.js"></script>
 
 	<script type="text/javascript">
 		require.config({
-			baseUrl: "../..",
+			packages: [
+				{
+					name: "requirejs-dplugins",
+					location: ".."
+				}
+			],
 			config: {
 				"requirejs-dplugins/i18n": {
 					locale: "fr"
