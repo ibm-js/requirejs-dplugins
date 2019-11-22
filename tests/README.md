@@ -2,19 +2,7 @@
 This directory contains the plugins tests.
 
 ## Setup
-You will need Bower and Grunt. So if they are not installed, install them using:
-```
-$ npm install -g grunt-cli
-$ npm install -g bower
-```
-
-Once this is done you can run the following commands to setup the project dependencies:
-```
-$ npm install
-$ bower install
-```
-
-Also, if you are going to run against Sauce Labs, you need to
+If you are going to run against Sauce Labs, you need to
 setup your SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables as they are listed
 on https://saucelabs.com/appium/tutorial/3.
 
@@ -24,14 +12,14 @@ on https://saucelabs.com/appium/tutorial/3.
 Run:
 
 ```
-$ grunt intern:remote
+$ npx intern config=@sauce
 ```
 
 ## Running the unit tests locally
 
 
 ```
-$ grunt intern:local
+$ npx intern
 ```
 
 ## Running the tests from a browser

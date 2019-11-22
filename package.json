@@ -1,23 +1,35 @@
 {
 	"name": "requirejs-dplugins",
-	"version": "0.6.1",
+	"version": "0.6.2",
 	"description": "AMD plugins for RequireJS",
+	"homepage": "http://ibm-js.github.io/requirejs-dplugins/",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ibm-js/requirejs-dplugins"
+	},
+
+	"bugs": "https://github.com/ibm-js/requirejs-dplugins/issues",
+	"dependencies": {
+		"jquery": ">=2.1",
+		"lie": ">=3.3",
+		"requirejs-text": "2.0.x",
+		"requirejs-domready": "2.0.x"
+	},
 	"devDependencies": {
 		"grunt": "1.0.x",
 		"grunt-contrib-clean": "2.0.x",
 		"grunt-contrib-jshint": "2.1.x",
 		"grunt-jsbeautifier": "0.2.x",
-		"grunt-run": "0.8.x",
-		"requirejs": "2.1.x",
-		"intern": "4.4.x",
 		"grunt-lineending": "1.0.x",
-		"jsdom": "15.1.x"
+		"grunt-run": "0.8.x",
+		"intern": "4.4.x",
+		"jsdom": "15.1.x",
+		"requirejs": "2.1.x"
 	},
 	"licenses": [
 		{
 			"type": "BSD",
 			"url": "https://github.com/ibm-js/requirejs-dplugins/blob/master/LICENSE"
 		}
-	],
-	"private": true
+	]
 }
