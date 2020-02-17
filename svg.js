@@ -17,10 +17,9 @@ define([
 	"./has",
 	"./Promise!",
 	"module",
-	"require",
 	"requirejs-text/text",
 	"requirejs-domready/domReady"
-], function (has, Promise, module, localRequire, textPlugin) {
+], function (has, Promise, module, textPlugin, domReady) {
 	"use strict";
 
 	var loaded = {}, // paths of loaded svgs
@@ -54,8 +53,8 @@ define([
 
 				if (!(path in loaded)) {
 					loaded[path] = new Promise(function (resolve) {
-						localRequire(["requirejs-domready/domReady!"], function () {
-							textPlugin.load(path, resourceRequire, function (svgText) {
+						textPlugin.load(path, resourceRequire, function (svgText) {
+							domReady(function () {
 								if (!sprite) {
 									sprite = createSprite(document, SPRITE_ID);
 									document.body.appendChild(sprite);
