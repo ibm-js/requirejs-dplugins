@@ -15,11 +15,10 @@
 
 define([
 	"./has",
-	"./Promise!",
 	"module",
 	"requirejs-text/text",
 	"requirejs-domready/domReady"
-], function (has, Promise, module, textPlugin, domReady) {
+], function (has, module, textPlugin, domReady) {
 	"use strict";
 
 	var loaded = {}, // paths of loaded svgs

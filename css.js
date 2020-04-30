@@ -30,9 +30,8 @@
 
 define([
 	"./has",
-	"./Promise!",
 	"module"
-], function (has, Promise, module) {
+], function (has, module) {
 	"use strict";
 
 	has.add("event-link-onload-api", function (global) {
@@ -45,7 +44,7 @@ define([
 	/**
 	 * Return a promise that resolves when the specified link has finished loading.
 	 * @param {HTMLLinkElement} link - The link element to be notified for.
-	 * @returns {module:jQuery/Promise} - A promise.
+	 * @returns {Promise} - A promise.
 	 * @private
 	 */
 	var listenOnLoad = function (link) {
