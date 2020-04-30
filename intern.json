@@ -38,13 +38,7 @@
 		"requirejs-dplugins/tests/unit/svg",
 		"requirejs-dplugins/tests/unit/css",
 		"requirejs-dplugins/tests/unit/has",
-		"requirejs-dplugins/tests/unit/i18n",
-		"requirejs-dplugins/tests/unit/Promise",
-		"requirejs-dplugins/tests/unit/jquery"
-	],
-
-	"functionalSuites": [
-		"./tests/functional/jqueryScript"
+		"requirejs-dplugins/tests/unit/i18n"
 	],
 
 	"coverage": [

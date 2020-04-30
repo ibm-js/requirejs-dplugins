@@ -66,7 +66,6 @@ module.exports = function (grunt) {
 		clean: {
 			// Delete files created by the "testBuild" target.
 			testBuild: [
-				"tests/functional/jqueryApp/{bower_components,node_modules,build,tmp}",
 				"tests/functional/cssApp/{bower_components,node_modules,build,tmp}"
 			]
 		}
@@ -143,7 +142,7 @@ module.exports = function (grunt) {
 
 	// Testing.
 	// Always specify the target e.g. grunt test:remote, grunt test:remote.
-	// For more control, run testBuild:css and testBuild:jquery manually, then
+	// For more control, run testBuild:css manually, then
 	// directly call "npx intern".
 	var testTaskDescription = "Run this task instead of the intern task directly! \n" +
 		"Always specify the test target e.g. \n" +
@@ -152,7 +151,6 @@ module.exports = function (grunt) {
 	grunt.registerTask("test", testTaskDescription, function (target) {
 		// First create the test builds. These are referenced from the intern tests.
 		grunt.task.run("testBuild:css");
-		grunt.task.run("testBuild:jquery");
 
 		// Then run the intern tests.
 		grunt.task.run("run:intern-" + target);

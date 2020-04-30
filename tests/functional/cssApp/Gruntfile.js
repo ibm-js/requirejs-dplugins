@@ -1,4 +1,4 @@
-// Gruntfile for building layer including src.js and the jquery modules it references
+// Gruntfile for building layer including src.js
 module.exports = function (grunt) {
 	"use strict";
 
@@ -17,17 +17,7 @@ module.exports = function (grunt) {
 			baseUrl: ".",
 
 			paths: {
-				jquery: "bower_components/jquery",
-				lie: "bower_components/lie",
 				"requirejs-dplugins": "../../.."
-			},
-
-			// Unfortunately this is needed for the jquery plugin.
-			// It's automatically handled by the plugin itself at runtime, but not during builds.
-			map: {
-				"*": {
-					"jquery/src/selector": "jquery/src/selector-native"
-				}
 			}
 		},
 
@@ -36,7 +26,7 @@ module.exports = function (grunt) {
 
 			// List of layers to build.
 			layers: [
-				// Test build for jquery plugin.  Should contain main test js file and a few jquery modules.
+				// Test build.
 				{
 					name: "app",
 					include: [

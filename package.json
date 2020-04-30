@@ -7,11 +7,8 @@
 		"type": "git",
 		"url": "https://github.com/ibm-js/requirejs-dplugins"
 	},
-
 	"bugs": "https://github.com/ibm-js/requirejs-dplugins/issues",
 	"dependencies": {
-		"jquery": ">=2.1",
-		"lie": ">=3.3",
 		"requirejs-text": "2.0.x",
 		"requirejs-domready": "2.0.x"
 	},

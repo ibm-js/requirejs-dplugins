@@ -5,16 +5,12 @@ Set of AMD plugins for RequireJS. It contains the following plugins:
  * [css](#css)
  * [has](#has)
  * [i18n](#i18n)
- * [jquery](#jquery)
  * [maybe](#maybe)
- * [Promise](#promise)
  * [svg](#svg)
 
 ## Status
 
 No official release yet.
-
-## Migration
 
 ## Licensing
 
@@ -23,21 +19,9 @@ All contributions require a [Dojo Foundation CLA](http://dojofoundation.org/abou
 
 ## Installation
 
-_Bower_ release installation:
+_Npm_ release installation:
 
-    $ bower install requirejs-dplugins
-
-_Manual_ master installation:
-
-    $ git clone git://github.com/ibm-js/requirejs-dplugins.git
-
-Then install dependencies with bower (or manually from github if you prefer to):
-
-	$ cd requirejs-dplugins
-	$ bower install
-
-When using the jQuery plugin, in order to be able to load jQuery modules, you must manually include jQuery into 
-your app via `bower install jquery` or via a script tag (ex: `<script src="https://code.jquery.com/jquery-2.1.1.min.js">`).
+    $ npm install requirejs-dplugins
 
 ## css
 This plugin will load and wait for a css file. CSS loaded with this plugin can be overwritten by
@@ -56,20 +40,10 @@ This plugin provides an API to handle string translation.
 
 See [docs/i18n.md](./docs/i18n.md) and [samples/i18n.html](./samples/i18n.html) for documentation and sample.
 
-## jquery
-This plugin loads the specified jQuery modules if they are not loaded already.
-
-See [docs/jquery.md](./docs/jquery.md) for documentation.
-
 ## maybe
 This plugin allows to require modules that may or may not exist.
 
 See [docs/maybe.md](./docs/maybe.md) and [samples/maybe.html](./samples/maybe.html) for documentation and sample.
-
-## Promise
-This plugin provides an ES6 Promise implementation. If the browser does not provide ES6 Promise, it provides a shim.
-
-See [docs/Promise.md](./docs/Promise.md) for documentation.
 
 ## svg
 This plugin loads an svg graphic and defines it in the DOM, so you can reference it in a `<use>` tag.
