@@ -1,6 +1,6 @@
 {
 	"name": "requirejs-dplugins",
-	"version": "0.6.2",
+	"version": "0.7.0",
 	"description": "AMD plugins for RequireJS",
 	"homepage": "http://ibm-js.github.io/requirejs-dplugins/",
 	"repository": {
