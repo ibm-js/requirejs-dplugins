@@ -19,7 +19,7 @@
 		"grunt-jsbeautifier": "0.2.x",
 		"grunt-lineending": "1.0.x",
 		"grunt-run": "0.8.x",
-		"intern": "4.4.x",
+		"intern": "4.10.x",
 		"jsdom": "16.5.x",
 		"requirejs": "2.1.x"
 	},
