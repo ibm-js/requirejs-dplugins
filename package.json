@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"grunt": "1.5.x",
 		"grunt-contrib-clean": "2.0.x",
-		"grunt-contrib-jshint": "2.1.x",
+		"grunt-contrib-jshint": "3.2.x",
 		"grunt-jsbeautifier": "0.2.x",
 		"grunt-lineending": "1.0.x",
 		"grunt-run": "0.8.x",
