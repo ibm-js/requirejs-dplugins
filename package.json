@@ -21,7 +21,7 @@
 		"grunt-run": "0.8.x",
 		"intern": "4.10.x",
 		"jsdom": "16.7.x",
-		"requirejs": "2.1.x"
+		"requirejs": "2.3.x"
 	},
 	"licenses": [
 		{
